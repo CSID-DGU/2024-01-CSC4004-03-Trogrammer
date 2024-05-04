@@ -29,7 +29,7 @@
 
 ## 1. 개발 환경
 
-- Front : HTML, Kotlin
+- Front-end : Kotlin (Android Studio)
 - Back-end : Java, Spring Boot
 - Database: MySQL
 - Server: AWS
