@@ -92,7 +92,7 @@
 							app:shapeAppearanceOverlay="@style/cr20"
 							android:layout_width="110dp"
 							android:layout_height="107dp"
-							android:src="@mipmap/ic_launcher"
+							android:src="@drawable/foodpic"
 							android:scaleType="fitXY"
 						/>
 						<View
@@ -176,7 +176,7 @@
 						<LinearLayout
 							android:id="@+id/rg9brc6d9whr"
 							android:layout_width="173dp"
-							android:layout_height="wrap_content"
+							android:layout_height="320dp"
 							android:background="@drawable/fms_cr20bffffffff"
 							android:paddingHorizontal="9dp"
 							android:elevation="4dp"
@@ -186,7 +186,7 @@
 								android:layout_width="match_parent"
 								android:layout_height="293dp"
 								android:layout_marginTop="17dp"
-								android:src="@mipmap/ic_launcher"
+								android:src="@drawable/ex_coupang"
 								android:scaleType="fitXY"
 							/>
 						</LinearLayout>
@@ -198,7 +198,7 @@
 						<LinearLayout
 							android:id="@+id/rmhx7nphg91"
 							android:layout_width="173dp"
-							android:layout_height="wrap_content"
+							android:layout_height="320dp"
 							android:background="@drawable/fms_cr20bffffffff"
 							android:paddingHorizontal="5dp"
 							android:elevation="4dp"
@@ -208,7 +208,7 @@
 								android:layout_width="match_parent"
 								android:layout_height="295dp"
 								android:layout_marginTop="17dp"
-								android:src="@mipmap/ic_launcher"
+								android:src="@drawable/ex_coupang"
 								android:scaleType="fitXY"
 							/>
 						</LinearLayout>

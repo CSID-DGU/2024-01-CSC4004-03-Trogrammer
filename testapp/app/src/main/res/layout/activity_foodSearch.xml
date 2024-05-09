@@ -87,7 +87,7 @@
 						android:layout_height="177dp"
 						android:layout_marginBottom="32dp"
 						android:layout_marginHorizontal="98dp"
-						android:src="@mipmap/ic_launcher"
+						android:src="@drawable/foodpic"
 						android:scaleType="fitXY"
 					/>
 					<TextView

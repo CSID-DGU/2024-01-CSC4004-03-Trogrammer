@@ -1,0 +1,172 @@
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:background="#FFFFFFFF"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<ScrollView 
+		android:fillViewport="true"
+		android:id="@+id/rer0c7rp3cam"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:background="@drawable/fr_sff000000sw1bffffffff"
+		>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:id="@+id/r3skw0xslmk"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="#FFF6F6F6"
+				android:orientation="vertical"
+				android:paddingHorizontal="19dp"
+				android:paddingTop="11dp"
+				android:paddingBottom="57dp">
+
+				<LinearLayout
+					android:id="@+id/rfocx2y34fic"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="70dp"
+					android:gravity="center_vertical"
+					android:orientation="horizontal" />
+
+				<LinearLayout
+					android:id="@+id/rd9c586lo03v"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="21dp"
+					android:background="@drawable/fr_cr20bffdb1f30"
+					android:elevation="4dp"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingHorizontal="22dp"
+					android:paddingVertical="38dp">
+
+					<TextView
+						android:id="@+id/rmzs6un8bgpa"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="15dp"
+						android:text="OO의 냉장고"
+						android:textColor="#FFFFFF"
+						android:textSize="24sp" />
+
+					<RelativeLayout
+						android:id="@+id/ru2pm9f2t23_rl"
+						android:layout_width="22dp"
+						android:layout_height="22dp">
+
+						<ImageView
+							android:id="@+id/ru2pm9f2t23"
+							android:layout_width="22dp"
+							android:layout_height="22dp"
+							android:scaleType="fitXY"
+							android:src="@mipmap/ic_launcher" />
+
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:orientation="vertical"
+							android:paddingHorizontal="3dp">
+
+							<ImageView
+								android:id="@+id/r7sp2cozrtjd"
+								android:layout_width="match_parent"
+								android:layout_height="16dp"
+								android:layout_marginTop="3dp"
+								android:scaleType="fitXY"
+								android:src="@mipmap/ic_launcher" />
+						</LinearLayout>
+					</RelativeLayout>
+				</LinearLayout>
+
+				<RelativeLayout
+					android:id="@+id/r912op4dqo2m_rl"
+					android:layout_width="match_parent"
+					android:layout_height="396dp">
+
+					<ImageView
+						android:id="@+id/r912op4dqo2m"
+						android:layout_width="match_parent"
+						android:layout_height="700dp"
+						android:scaleType="fitXY"
+						android:src="@drawable/Refrigerator" />
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:orientation="vertical"
+						android:paddingHorizontal="74dp"
+						android:paddingTop="86dp"
+						android:paddingBottom="58dp">
+
+						<LinearLayout
+							android:id="@+id/rcwy2nrrxekq"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="24dp"
+							android:background="@drawable/fr_cr20bffffffff"
+							android:elevation="4dp"
+							android:gravity="center_horizontal"
+							android:orientation="vertical"
+							android:paddingVertical="24dp">
+
+							<TextView
+								android:id="@+id/rv5n2xi8d9v"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="식재료 추가"
+								android:textColor="#000000"
+								android:textSize="20sp" />
+						</LinearLayout>
+
+						<LinearLayout
+							android:id="@+id/rli941mm73mb"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="24dp"
+							android:background="@drawable/fr_cr20bffffffff"
+							android:elevation="4dp"
+							android:gravity="center_horizontal"
+							android:orientation="vertical"
+							android:paddingVertical="24dp">
+
+							<TextView
+								android:id="@+id/rk00zn5wubbl"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="유통기한 확인"
+								android:textColor="#000000"
+								android:textSize="20sp" />
+						</LinearLayout>
+
+						<LinearLayout
+							android:id="@+id/rqxzcdmeeg0j"
+							android:layout_width="match_parent"
+							android:layout_height="70dp"
+							android:background="@drawable/fr_cr20bffffffff"
+							android:elevation="4dp"
+							android:gravity="center_horizontal"
+							android:orientation="vertical"
+							android:paddingVertical="24dp">
+
+							<TextView
+								android:id="@+id/rahdbfjyp1ap"
+								android:layout_width="wrap_content"
+								android:layout_height="40dp"
+								android:text="레시피 추천"
+								android:textColor="#000000"
+								android:textSize="20sp" />
+						</LinearLayout>
+					</LinearLayout>
+				</RelativeLayout>
+			</LinearLayout>
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>
