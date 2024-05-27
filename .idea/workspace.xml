@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ddd5e553-35f6-47b7-917a-5a43eb2ead32" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/testapp/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/.idea/migrations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/.idea/render.experimental.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/androidTest/java/com/example/testapp/ExampleInstrumentedTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/java/com/example/testapp/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/drawable/cr20bffdb1f30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/drawable/cr20bffffd1d5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/drawable/cr20bffffebed.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/drawable/cr20bffffffff.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/drawable/sff000000sw1bffffffff.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/layout/activity_recommend_recipe.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/layout/activity_view_expiration_date.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/app/src/test/java/com/example/testapp/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/gradle/libs.versions.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testapp/settings.gradle.kts" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2h3fKxHFZy1Ch7QtdpEnXhmypC1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "Front-end",
+    "last_opened_file_path": "C:/Users/areasplash/Downloads/2024-01-CSC4004-03-Trogrammer/Application"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ddd5e553-35f6-47b7-917a-5a43eb2ead32" name="Changes" comment="" />
+      <created>1716827621776</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1716827621776</updated>
+    </task>
+    <servers />
+  </component>
+</project>

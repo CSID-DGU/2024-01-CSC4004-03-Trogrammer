@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/food_refrigerator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:background="@drawable/color_background"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:fillViewport="true"
+            android:id="@+id/rgr0w5xoyu8h"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/color_ffffff">
+
+            <LinearLayout
+                android:id="@+id/r3w2fkcmazjk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF6F6F6"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="106dp"
+                android:paddingBottom="118dp">
+
+                <LinearLayout
+                    android:id="@+id/rws6b1fjf6q"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginBottom="48dp"
+                    android:background="@drawable/color_db1f30"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="21dp"
+                    android:paddingVertical="30dp">
+
+                    <TextView
+                        android:id="@+id/rmzs6un8bgpa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="OO의 냉장고"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/r912op4dqo2m_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="456dp"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginBottom="48dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="21dp"
+                    android:paddingVertical="10dp">
+
+                    <ImageView
+                        android:id="@+id/r912op4dqo2m"
+                        android:layout_width="match_parent"
+                        android:layout_height="700dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/image_refrigerator" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="58dp"
+                        android:paddingTop="76dp"
+                        android:paddingBottom="0dp">
+
+                        <Button
+                            android:id="@+id/refrigeratorAddFood"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:background="@drawable/color_ffffff"
+                            android:elevation="4dp"
+                            android:gravity="center_horizontal"
+                            android:text="식재료 추가"
+                            android:textColor="#000000"
+                            android:textSize="20sp"
+                            android:paddingVertical="24dp" />
+
+                        <Button
+                            android:id="@+id/refrigeratorViewExpirationData"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:background="@drawable/color_ffffff"
+                            android:elevation="4dp"
+                            android:gravity="center_horizontal"
+                            android:text="유통기한 확인"
+                            android:textColor="#000000"
+                            android:textSize="20sp"
+                            android:paddingVertical="24dp" />
+
+                        <Button
+                            android:id="@+id/refrigeratorRecommendRecipe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24dp"
+                            android:background="@drawable/color_ffffff"
+                            android:elevation="4dp"
+                            android:gravity="center_horizontal"
+                            android:text="레시피 추천"
+                            android:textColor="#000000"
+                            android:textSize="20sp"
+                            android:paddingVertical="24dp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
