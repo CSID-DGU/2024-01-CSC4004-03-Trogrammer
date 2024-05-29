@@ -22,6 +22,20 @@ CREATE TABLE Alcohols (
     FOREIGN KEY (RecommendedFoodCategory) REFERENCES Foods(FoodCategory)
 );
 
+CREATE TABLE Recipes (
+    RecipeID INT AUTO_INCREMENT PRIMARY KEY,
+    RecipeName VARCHAR(50) NOT NULL,
+    RecipeDescription TEXT,
+    CookingTime INT
+);
+
+CREATE TABLE Recipe_Ingredients (
+    RecipeID INT,
+    IngredientID INT AUTO_INCREMENT PRIMARY KEY,
+    RequiredQuantity INT,
+    FOREIGN KEY (RecipeID) REFERENCES Recipes(RecipeID)
+);
+
 CREATE TABLE Refrigerator_Ingredients (
     RefrigeratorIngredientID INT AUTO_INCREMENT PRIMARY KEY,
     IngredientName VARCHAR(50) NOT NULL,
