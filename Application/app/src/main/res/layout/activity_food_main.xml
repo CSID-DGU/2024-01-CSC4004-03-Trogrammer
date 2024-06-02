@@ -64,7 +64,7 @@
                         <ImageButton
                             android:id="@+id/search_food_icon"
                             android:layout_width="36dp"
-                            android:layout_height="32dp"
+                            android:layout_height="36dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/searchbar"
                             android:scaleType="fitXY" />
