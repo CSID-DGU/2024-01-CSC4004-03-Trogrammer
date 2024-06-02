@@ -27,6 +27,10 @@
         </activity>
 
         <activity
+            android:name=".FoodSelectActivity">
+        </activity>
+
+        <activity
             android:name=".ViewExpirationDateActivity">
         </activity>
         <activity
