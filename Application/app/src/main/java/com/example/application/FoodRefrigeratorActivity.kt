@@ -15,8 +15,13 @@ class FoodRefrigeratorActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_food_refrigerator)
 
-        val buttonViewExpirationData = findViewById<Button>(R.id.refrigeratorViewExpirationData)
-        buttonViewExpirationData.setOnClickListener {
+        val buttonAddFood = findViewById<Button>(R.id.refrigeratorAddFood)
+        buttonAddFood.setOnClickListener {
+            val intent = Intent(this, AddFoodActivity::class.java)
+            startActivity(intent)
+        }
+        val buttonViewExpirationDate = findViewById<Button>(R.id.refrigeratorViewExpirationDate)
+        buttonViewExpirationDate.setOnClickListener {
             val intent = Intent(this, ViewExpirationDateActivity::class.java)
             startActivity(intent)
         }

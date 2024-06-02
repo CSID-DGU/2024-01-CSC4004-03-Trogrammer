@@ -27,10 +27,17 @@
         </activity>
 
         <activity
+            android:name=".AddFoodActivity">
+        </activity>
+        <activity
             android:name=".ViewExpirationDateActivity">
         </activity>
         <activity
             android:name=".RecommendRecipeActivity">
+        </activity>
+
+        <activity
+            android:name=".FoodSelectActivity">
         </activity>
 
     </application>
