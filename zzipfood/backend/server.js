@@ -55,7 +55,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
             7000,
             4000,
             "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!",
-            "된장, 두부, 감자, 양파, 대파"
+            "된장, 두부, 애호박, 고추"
           );
           stmt.finalize();
         }
