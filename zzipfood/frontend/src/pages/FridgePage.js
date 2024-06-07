@@ -1,38 +1,39 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../App.css";
 
 function FridgePage() {
   const [ingredients, setIngredients] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    const fetchIngredients = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/ingredients"
-        );
+    axios
+      .get("/api/ingredients")
+      .then((response) => {
         setIngredients(response.data);
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error("Error fetching ingredients:", error);
-      }
-    };
-
-    fetchIngredients();
+      });
   }, []);
 
-  const sortedIngredients = [...ingredients].sort(
-    (a, b) => new Date(a.expiryDate) - new Date(b.expiryDate)
-  );
-
-  const recommendedDishes = ["고기볶음", "양파수프", "당근라페"];
+  useEffect(() => {
+    axios
+      .get("/api/recommend-recipes")
+      .then((response) => {
+        setRecipes(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching recommended recipes:", error);
+      });
+  }, [ingredients]);
 
   return (
     <div className="container">
       <h1>냉장고 재료 확인</h1>
       <h2>재료 리스트 (유통기한 순)</h2>
       <ul>
-        {sortedIngredients.map((ingredient, index) => (
-          <li key={index}>
+        {ingredients.map((ingredient) => (
+          <li key={ingredient.name}>
             {ingredient.name} - 유통기한:{" "}
             {new Date(ingredient.expiryDate).toLocaleDateString()}
           </li>
@@ -40,8 +41,10 @@ function FridgePage() {
       </ul>
       <h2>추천 요리</h2>
       <ul>
-        {recommendedDishes.map((dish, index) => (
-          <li key={index}>{dish}</li>
+        {recipes.map((recipe) => (
+          <li key={recipe.name}>
+            {recipe.name} ({recipe.ingredients.join(", ")})
+          </li>
         ))}
       </ul>
     </div>
