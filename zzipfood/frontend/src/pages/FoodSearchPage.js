@@ -1,328 +1,66 @@
-const express = require("express");
-const sqlite3 = require("sqlite3").verbose();
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const path = require("path");
+import React, { useState } from "react";
+import axios from "axios";
+import "../App.css";
 
-const app = express();
-const port = 5000;
+function FoodSearchPage() {
+  const [food, setFood] = useState("");
+  const [results, setResults] = useState([]);
+  const [ingredientPrices, setIngredientPrices] = useState({});
+  const [totalCost, setTotalCost] = useState(0);
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-
-// SQLite 데이터베이스 파일 경로
-const dbPath = path.resolve(__dirname, "zzipfood.db");
-
-// SQLite 데이터베이스 연결
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error("Error opening database", err);
-  } else {
-    // 데이터베이스 초기화
-    db.serialize(() => {
-      db.run("DROP TABLE IF EXISTS foods");
-      db.run("DROP TABLE IF EXISTS ingredients");
-
-      db.run(`CREATE TABLE IF NOT EXISTS foods (
-        name TEXT,
-        restaurantName TEXT,
-        restaurantPrice INTEGER,
-        ingredientCost INTEGER,
-        recipe TEXT,
-        ingredients TEXT
-      )`);
-
-      db.run(`CREATE TABLE IF NOT EXISTS ingredients (
-        name TEXT,
-        price INTEGER
-      )`);
-
-      // 초기 데이터 삽입
-      db.get("SELECT COUNT(*) AS count FROM foods", (err, row) => {
-        if (err) {
-          console.error("Error checking foods table", err);
-        } else if (row.count === 0) {
-          const stmt = db.prepare(
-            "INSERT INTO foods (name, restaurantName, restaurantPrice, ingredientCost, recipe, ingredients) VALUES (?, ?, ?, ?, ?, ?)"
-          );
-          // 김치찌개
-          stmt.run(
-            "김치찌개",
-            "한식당",
-            8000,
-            5000,
-            "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!",
-            "김치, 돼지고기, 두부, 양파, 대파, 고춧가루"
-          );
-          stmt.run(
-            "김치찌개",
-            "맛있는 집",
-            8500,
-            5000,
-            "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!",
-            "김치, 돼지고기, 두부, 양파, 대파, 고춧가루"
-          );
-          stmt.run(
-            "김치찌개",
-            "정겨운 식당",
-            9000,
-            5000,
-            "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!",
-            "김치, 돼지고기, 두부, 양파, 대파, 고춧가루"
-          );
-
-          // 된장찌개
-          stmt.run(
-            "된장찌개",
-            "한식당",
-            7000,
-            4000,
-            "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!",
-            "된장, 두부, 애호박, 고추"
-          );
-          stmt.run(
-            "된장찌개",
-            "맛있는 집",
-            7500,
-            4000,
-            "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!",
-            "된장, 두부, 애호박, 고추"
-          );
-          stmt.run(
-            "된장찌개",
-            "정겨운 식당",
-            8000,
-            4000,
-            "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!",
-            "된장, 두부, 애호박, 고추"
-          );
-
-          // 비빔밥
-          stmt.run(
-            "비빔밥",
-            "한식당",
-            9000,
-            6000,
-            "1. 밥 준비\n2. 야채와 고기와 함께 비비기\n3. 고추장 넣기\n4. 완성!",
-            "밥, 고추장, 소고기, 시금치, 당근, 콩나물, 계란"
-          );
-          stmt.run(
-            "비빔밥",
-            "맛있는 집",
-            9500,
-            6000,
-            "1. 밥 준비\n2. 야채와 고기와 함께 비비기\n3. 고추장 넣기\n4. 완성!",
-            "밥, 고추장, 소고기, 시금치, 당근, 콩나물, 계란"
-          );
-          stmt.run(
-            "비빔밥",
-            "정겨운 식당",
-            10000,
-            6000,
-            "1. 밥 준비\n2. 야채와 고기와 함께 비비기\n3. 고추장 넣기\n4. 완성!",
-            "밥, 고추장, 소고기, 시금치, 당근, 콩나물, 계란"
-          );
-
-          // 불고기
-          stmt.run(
-            "불고기",
-            "고기집",
-            12000,
-            7000,
-            "1. 소고기 양념하기\n2. 야채와 함께 볶기\n3. 완성!",
-            "소고기, 양파, 당근, 대파, 마늘, 간장, 설탕"
-          );
-          stmt.run(
-            "불고기",
-            "맛있는 집",
-            12500,
-            7000,
-            "1. 소고기 양념하기\n2. 야채와 함께 볶기\n3. 완성!",
-            "소고기, 양파, 당근, 대파, 마늘, 간장, 설탕"
-          );
-          stmt.run(
-            "불고기",
-            "정겨운 식당",
-            13000,
-            7000,
-            "1. 소고기 양념하기\n2. 야채와 함께 볶기\n3. 완성!",
-            "소고기, 양파, 당근, 대파, 마늘, 간장, 설탕"
-          );
-
-          // 김밥
-          stmt.run(
-            "김밥",
-            "분식집",
-            5000,
-            3000,
-            "1. 김밥 재료 준비\n2. 밥과 재료를 김에 말기\n3. 완성!",
-            "김, 밥, 단무지, 시금치, 당근, 햄, 계란"
-          );
-          stmt.run(
-            "김밥",
-            "맛있는 집",
-            5500,
-            3000,
-            "1. 김밥 재료 준비\n2. 밥과 재료를 김에 말기\n3. 완성!",
-            "김, 밥, 단무지, 시금치, 당근, 햄, 계란"
-          );
-          stmt.run(
-            "김밥",
-            "정겨운 식당",
-            6000,
-            3000,
-            "1. 김밥 재료 준비\n2. 밥과 재료를 김에 말기\n3. 완성!",
-            "김, 밥, 단무지, 시금치, 당근, 햄, 계란"
-          );
-
-          // 잡채
-          stmt.run(
-            "잡채",
-            "한식당",
-            10000,
-            6000,
-            "1. 당면 삶기\n2. 고기와 야채 볶기\n3. 당면과 함께 볶기\n4. 완성!",
-            "당면, 소고기, 시금치, 당근, 양파, 대파, 간장, 설탕"
-          );
-          stmt.run(
-            "잡채",
-            "맛있는 집",
-            10500,
-            6000,
-            "1. 당면 삶기\n2. 고기와 야채 볶기\n3. 당면과 함께 볶기\n4. 완성!",
-            "당면, 소고기, 시금치, 당근, 양파, 대파, 간장, 설탕"
-          );
-          stmt.run(
-            "잡채",
-            "정겨운 식당",
-            11000,
-            6000,
-            "1. 당면 삶기\n2. 고기와 야채 볶기\n3. 당면과 함께 볶기\n4. 완성!",
-            "당면, 소고기, 시금치, 당근, 양파, 대파, 간장, 설탕"
-          );
-
-          stmt.finalize();
-        }
-      });
-
-      db.get("SELECT COUNT(*) AS count FROM ingredients", (err, row) => {
-        if (err) {
-          console.error("Error checking ingredients table", err);
-        } else if (row.count === 0) {
-          const stmt = db.prepare(
-            "INSERT INTO ingredients (name, price) VALUES (?, ?)"
-          );
-          stmt.run("김치", 2000);
-          stmt.run("돼지고기", 3000);
-          stmt.run("두부", 1000);
-          stmt.run("양파", 500);
-          stmt.run("대파", 500);
-          stmt.run("고춧가루", 1000);
-          stmt.run("된장", 1500);
-          stmt.run("애호박", 1000);
-          stmt.run("고추", 500);
-          stmt.run("밥", 1000);
-          stmt.run("고추장", 500);
-          stmt.run("소고기", 4000);
-          stmt.run("시금치", 500);
-          stmt.run("당근", 300);
-          stmt.run("콩나물", 300);
-          stmt.run("계란", 500);
-          stmt.run("마늘", 200);
-          stmt.run("간장", 200);
-          stmt.run("설탕", 100);
-          stmt.run("김", 500);
-          stmt.run("단무지", 300);
-          stmt.run("햄", 500);
-          stmt.run("당면", 1500);
-          stmt.finalize();
-        }
-      });
-    });
-  }
-});
-
-// API 엔드포인트
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
-
-// 음식 검색 API
-app.get("/api/foods/:name", (req, res) => {
-  const name = req.params.name;
-  db.all("SELECT * FROM foods WHERE name = ?", [name], (err, rows) => {
-    if (err) {
-      res.status(500).send("Error fetching food");
-    } else if (rows.length === 0) {
-      res.status(404).send("Food not found");
-    } else {
-      res.send(rows);
-    }
-  });
-});
-
-// 재료 가격 API
-app.get("/api/ingredient-prices/:name", (req, res) => {
-  const name = req.params.name;
-  db.get("SELECT ingredients FROM foods WHERE name = ?", [name], (err, row) => {
-    if (err) {
-      res.status(500).send("Error fetching ingredients");
-    } else if (!row) {
-      res.status(404).send("Food not found");
-    } else {
-      const ingredients = row.ingredients.split(", ");
-      const prices = {};
-      let totalCost = 0;
-
-      db.all(
-        "SELECT name, price FROM ingredients WHERE name IN (" +
-          ingredients.map(() => "?").join(",") +
-          ")",
-        ingredients,
-        (err, rows) => {
-          if (err) {
-            res.status(500).send("Error fetching ingredient prices");
-          } else {
-            rows.forEach((ingredient) => {
-              prices[ingredient.name] = ingredient.price;
-              totalCost += ingredient.price;
-            });
-            res.send({ prices, totalCost });
-          }
-        }
+  const handleSearch = async () => {
+    try {
+      const foodResponse = await axios.get(
+        `http://localhost:5000/api/foods/${food}`
       );
-    }
-  });
-});
+      setResults(foodResponse.data);
 
-// 냉장고 재료 API
-app.get("/api/ingredients", (req, res) => {
-  db.all("SELECT * FROM ingredients ORDER BY name ASC", [], (err, rows) => {
-    if (err) {
-      res.status(500).send("Error fetching ingredients");
-    } else {
-      res.send(rows);
+      const pricesResponse = await axios.get(
+        `http://localhost:5000/api/ingredient-prices/${food}`
+      );
+      setIngredientPrices(pricesResponse.data.prices);
+      setTotalCost(pricesResponse.data.totalCost);
+    } catch (error) {
+      console.error("Error fetching the food data:", error);
     }
-  });
-});
+  };
 
-app.post("/api/ingredients", (req, res) => {
-  const { name, price } = req.body;
-  db.run(
-    "INSERT INTO ingredients (name, price) VALUES (?, ?)",
-    [name, price],
-    function (err) {
-      if (err) {
-        res.status(500).send("Error adding ingredient");
-      } else {
-        res.send({ id: this.lastID });
-      }
-    }
+  return (
+    <div className="container">
+      <h1>먹고싶은 음식 검색</h1>
+      <input
+        type="text"
+        value={food}
+        onChange={(e) => setFood(e.target.value)}
+        placeholder="음식을 입력하세요"
+      />
+      <button onClick={handleSearch}>검색</button>
+
+      {results.length > 0 && (
+        <div>
+          <h2>검색 결과</h2>
+          {results.map((result, index) => (
+            <div key={index}>
+              <p>
+                식당: {result.restaurantName} - 가격: {result.restaurantPrice}원
+              </p>
+            </div>
+          ))}
+          <h3>재료 비용</h3>
+          <ul>
+            {Object.entries(ingredientPrices).map(([ingredient, price]) => (
+              <li key={ingredient}>
+                {ingredient}: {price ? `${price}원` : "가격 정보 없음"}
+              </li>
+            ))}
+          </ul>
+          <h3>재료 총 비용: {totalCost}원</h3>
+          <h3>레시피</h3>
+          <pre>{results[0].recipe}</pre>
+        </div>
+      )}
+    </div>
   );
-});
+}
 
-// 서버 시작
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+export default FoodSearchPage;
