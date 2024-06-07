@@ -32,7 +32,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
       db.run(`CREATE TABLE IF NOT EXISTS ingredients (
         name TEXT,
-        expiryDate TEXT
+        price INTEGER
       )`);
 
       // 초기 데이터 삽입
@@ -60,15 +60,29 @@ const db = new sqlite3.Database(dbPath, (err) => {
           stmt.finalize();
         }
       });
+
+      db.get("SELECT COUNT(*) AS count FROM ingredients", (err, row) => {
+        if (err) {
+          console.error("Error checking ingredients table", err);
+        } else if (row.count === 0) {
+          const stmt = db.prepare(
+            "INSERT INTO ingredients (name, price) VALUES (?, ?)"
+          );
+          stmt.run("김치", 2000);
+          stmt.run("돼지고기", 3000);
+          stmt.run("두부", 1000);
+          stmt.run("양파", 500);
+          stmt.run("대파", 500);
+          stmt.run("고춧가루", 1000);
+          stmt.run("된장", 1500);
+          stmt.run("애호박", 1000);
+          stmt.run("고추", 500);
+          stmt.finalize();
+        }
+      });
     });
   }
 });
-
-// 공공데이터 API 키
-const AT_API_KEY =
-  "uvMuiapWN925HRbRRjzFfQd8yUY0jXrsREZJ7wVGa8JBndeswO8cuytpsRSwMIZQxWY2nHDcf0X3ex%2FiaYBk7Q%3D%3D"; // 공공데이터 포털에서 발급받은 키를 입력
-const SEOUL_API_KEY =
-  "uvMuiapWN925HRbRRjzFfQd8yUY0jXrsREZJ7wVGa8JBndeswO8cuytpsRSwMIZQxWY2nHDcf0X3ex%2FiaYBk7Q%3D%3D"; // 공공데이터 포털에서 발급받은 키를 입력
 
 // API 엔드포인트
 app.get("/", (req, res) => {
@@ -89,96 +103,56 @@ app.get("/api/foods/:name", (req, res) => {
   });
 });
 
-// 개별 재료 가격을 가져오는 함수
-async function getIngredientPrice(name) {
-  try {
-    // 한국농수산식품유통공사 API 호출
-    const atResponse = await axios.get(
-      `https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_cert_key=${AT_API_KEY}&p_cert_id=your_cert_id&p_returntype=json&p_product_cls_code=01&p_start_day=2022-01-01&p_end_day=2022-12-31&p_item_code=${encodeURIComponent(
-        name
-      )}`
-    );
-    const atPrices = atResponse.data.data.item;
-    const atPrice =
-      atPrices && atPrices.length > 0 ? parseInt(atPrices[0].dpr1, 10) : null;
-
-    // 서울특별시농수산식품공사 API 호출
-    const seoulResponse = await axios.get(
-      `http://openapi.seoul.go.kr:8088/${SEOUL_API_KEY}/json/ListNecessariesPricesService/1/5/${encodeURIComponent(
-        name
-      )}`
-    );
-    const seoulPrices = seoulResponse.data.ListNecessariesPricesService.row;
-    const seoulPrice =
-      seoulPrices && seoulPrices.length > 0
-        ? parseInt(seoulPrices[0].M_PRICE, 10)
-        : null;
-
-    if (atPrice && seoulPrice) {
-      return (atPrice + seoulPrice) / 2; // 두 가격의 평균을 반환
-    } else if (atPrice) {
-      return atPrice;
-    } else if (seoulPrice) {
-      return seoulPrice;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error("Error fetching ingredient price:", error);
-    return null;
-  }
-}
-
-// 식재료 가격 API
-app.get("/api/ingredient-prices/:name", async (req, res) => {
+// 재료 가격 API
+app.get("/api/ingredient-prices/:name", (req, res) => {
   const name = req.params.name;
-  db.get(
-    "SELECT ingredients FROM foods WHERE name = ?",
-    [name],
-    async (err, row) => {
-      if (err) {
-        res.status(500).send("Error fetching ingredients");
-      } else if (!row) {
-        res.status(404).send("Food not found");
-      } else {
-        const ingredients = row.ingredients.split(", ");
-        const prices = {};
-        let totalCost = 0;
+  db.get("SELECT ingredients FROM foods WHERE name = ?", [name], (err, row) => {
+    if (err) {
+      res.status(500).send("Error fetching ingredients");
+    } else if (!row) {
+      res.status(404).send("Food not found");
+    } else {
+      const ingredients = row.ingredients.split(", ");
+      const prices = {};
+      let totalCost = 0;
 
-        for (const ingredient of ingredients) {
-          const price = await getIngredientPrice(ingredient);
-          prices[ingredient] = price;
-          if (price) {
-            totalCost += price;
+      db.all(
+        "SELECT name, price FROM ingredients WHERE name IN (" +
+          ingredients.map(() => "?").join(",") +
+          ")",
+        ingredients,
+        (err, rows) => {
+          if (err) {
+            res.status(500).send("Error fetching ingredient prices");
+          } else {
+            rows.forEach((ingredient) => {
+              prices[ingredient.name] = ingredient.price;
+              totalCost += ingredient.price;
+            });
+            res.send({ prices, totalCost });
           }
         }
-
-        res.send({ prices, totalCost });
-      }
+      );
     }
-  );
+  });
 });
 
 // 냉장고 재료 API
 app.get("/api/ingredients", (req, res) => {
-  db.all(
-    "SELECT * FROM ingredients ORDER BY expiryDate ASC",
-    [],
-    (err, rows) => {
-      if (err) {
-        res.status(500).send("Error fetching ingredients");
-      } else {
-        res.send(rows);
-      }
+  db.all("SELECT * FROM ingredients ORDER BY name ASC", [], (err, rows) => {
+    if (err) {
+      res.status(500).send("Error fetching ingredients");
+    } else {
+      res.send(rows);
     }
-  );
+  });
 });
 
 app.post("/api/ingredients", (req, res) => {
-  const { name, expiryDate } = req.body;
+  const { name, price } = req.body;
   db.run(
-    "INSERT INTO ingredients (name, expiryDate) VALUES (?, ?)",
-    [name, expiryDate],
+    "INSERT INTO ingredients (name, price) VALUES (?, ?)",
+    [name, price],
     function (err) {
       if (err) {
         res.status(500).send("Error adding ingredient");
