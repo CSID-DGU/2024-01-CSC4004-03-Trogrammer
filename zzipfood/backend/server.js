@@ -26,7 +26,8 @@ const db = new sqlite3.Database(dbPath, (err) => {
         name TEXT,
         restaurantPrice INTEGER,
         ingredientCost INTEGER,
-        recipe TEXT
+        recipe TEXT,
+        ingredients TEXT
       )`);
 
       db.run(`CREATE TABLE IF NOT EXISTS ingredients (
@@ -40,19 +41,21 @@ const db = new sqlite3.Database(dbPath, (err) => {
           console.error("Error checking foods table", err);
         } else if (row.count === 0) {
           const stmt = db.prepare(
-            "INSERT INTO foods (name, restaurantPrice, ingredientCost, recipe) VALUES (?, ?, ?, ?)"
+            "INSERT INTO foods (name, restaurantPrice, ingredientCost, recipe, ingredients) VALUES (?, ?, ?, ?, ?)"
           );
           stmt.run(
             "김치찌개",
             8000,
             5000,
-            "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!"
+            "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!",
+            "김치, 돼지고기, 두부, 양파, 대파, 고춧가루"
           );
           stmt.run(
             "된장찌개",
             7000,
             4000,
-            "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!"
+            "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!",
+            "된장, 두부, 감자, 양파, 대파"
           );
           stmt.finalize();
         }
@@ -84,11 +87,9 @@ app.get("/api/foods/:name", (req, res) => {
   });
 });
 
-// 식재료 가격 API
-app.get("/api/ingredient-price/:name", async (req, res) => {
+// 개별 재료 가격을 가져오는 함수
+async function getIngredientPrice(name) {
   try {
-    const name = req.params.name;
-
     // 한국농수산식품유통공사 API 호출
     const atResponse = await axios.get(
       `https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_cert_key=${AT_API_KEY}&p_cert_id=your_cert_id&p_returntype=json&p_product_cls_code=01&p_start_day=2022-01-01&p_end_day=2022-12-31&p_item_code=${encodeURIComponent(
@@ -112,15 +113,42 @@ app.get("/api/ingredient-price/:name", async (req, res) => {
         : null;
 
     if (atPrice && seoulPrice) {
-      const price = (atPrice + seoulPrice) / 2; // 두 가격의 평균을 사용
-      res.send({ name, price });
+      return (atPrice + seoulPrice) / 2; // 두 가격의 평균을 반환
+    } else if (atPrice) {
+      return atPrice;
+    } else if (seoulPrice) {
+      return seoulPrice;
     } else {
-      res.status(404).send("Price not found");
+      return null;
     }
   } catch (error) {
     console.error("Error fetching ingredient price:", error);
-    res.status(500).send("Error fetching ingredient price");
+    return null;
   }
+}
+
+// 식재료 가격 API
+app.get("/api/ingredient-prices/:name", async (req, res) => {
+  const name = req.params.name;
+  db.get(
+    "SELECT ingredients FROM foods WHERE name = ?",
+    [name],
+    async (err, row) => {
+      if (err) {
+        res.status(500).send("Error fetching ingredients");
+      } else if (!row) {
+        res.status(404).send("Food not found");
+      } else {
+        const ingredients = row.ingredients.split(", ");
+        const prices = {};
+        for (const ingredient of ingredients) {
+          const price = await getIngredientPrice(ingredient);
+          prices[ingredient] = price;
+        }
+        res.send(prices);
+      }
+    }
+  );
 });
 
 // 냉장고 재료 API
