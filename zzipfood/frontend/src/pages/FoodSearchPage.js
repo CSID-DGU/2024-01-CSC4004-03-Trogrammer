@@ -39,7 +39,9 @@ function FoodSearchPage() {
       {result && (
         <div>
           <h2>검색 결과</h2>
-          <p>식당 가격: {result.restaurantPrice}원</p>
+          <p>
+            식당: {result.restaurantName} - 가격: {result.restaurantPrice}원
+          </p>
           <h3>재료 비용</h3>
           <ul>
             {Object.entries(ingredientPrices).map(([ingredient, price]) => (
