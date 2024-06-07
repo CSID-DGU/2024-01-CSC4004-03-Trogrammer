@@ -298,6 +298,37 @@ app.get("/api/ingredients", (req, res) => {
   });
 });
 
+// 추천 요리 API
+app.get("/api/recommend-recipes", (req, res) => {
+  db.all("SELECT * FROM foods", [], (err, foodRows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    db.all("SELECT * FROM ingredients", [], (err, ingredientRows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+
+      const ingredients = ingredientRows.map((row) => row.name);
+      const recommendations = foodRows
+        .filter((food) => {
+          const foodIngredients = food.ingredients.split(", ");
+          return foodIngredients.every((ingredient) =>
+            ingredients.includes(ingredient)
+          );
+        })
+        .map((food) => {
+          const foodIngredients = food.ingredients.split(", ");
+          return { name: food.name, ingredients: foodIngredients };
+        });
+
+      res.json(recommendations);
+    });
+  });
+});
+
 // 서버 시작
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
