@@ -16,26 +16,49 @@ app.use(bodyParser.json());
 const dbPath = path.resolve(__dirname, "zzipfood.db");
 
 // SQLite 데이터베이스 연결
-const db = new sqlite3.Database(dbPath);
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error("Error opening database", err);
+  } else {
+    // 데이터베이스 초기화
+    db.serialize(() => {
+      db.run(`CREATE TABLE IF NOT EXISTS foods (
+        name TEXT,
+        restaurantPrice INTEGER,
+        ingredientCost INTEGER,
+        recipe TEXT
+      )`);
 
-// 데이터베이스 초기화
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS foods (
-    name TEXT,
-    restaurantPrice INTEGER,
-    ingredientCost INTEGER,
-    recipe TEXT
-  )`);
+      db.run(`CREATE TABLE IF NOT EXISTS ingredients (
+        name TEXT,
+        expiryDate TEXT
+      )`);
 
-  db.run(`CREATE TABLE IF NOT EXISTS ingredients (
-    name TEXT,
-    expiryDate TEXT
-  )`);
-
-  db.run(`INSERT INTO foods (name, restaurantPrice, ingredientCost, recipe) VALUES
-    ('김치찌개', 8000, 5000, '1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!'),
-    ('된장찌개', 7000, 4000, '1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!')
-  `);
+      // 초기 데이터 삽입
+      db.get("SELECT COUNT(*) AS count FROM foods", (err, row) => {
+        if (err) {
+          console.error("Error checking foods table", err);
+        } else if (row.count === 0) {
+          const stmt = db.prepare(
+            "INSERT INTO foods (name, restaurantPrice, ingredientCost, recipe) VALUES (?, ?, ?, ?)"
+          );
+          stmt.run(
+            "김치찌개",
+            8000,
+            5000,
+            "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!"
+          );
+          stmt.run(
+            "된장찌개",
+            7000,
+            4000,
+            "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!"
+          );
+          stmt.finalize();
+        }
+      });
+    });
+  }
 });
 
 // 공공데이터 API 키
