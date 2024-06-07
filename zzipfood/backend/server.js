@@ -65,8 +65,10 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 // 공공데이터 API 키
-const AT_API_KEY = "YOUR_AT_API_KEY"; // 공공데이터 포털에서 발급받은 키를 입력
-const SEOUL_API_KEY = "YOUR_SEOUL_API_KEY"; // 공공데이터 포털에서 발급받은 키를 입력
+const AT_API_KEY =
+  "uvMuiapWN925HRbRRjzFfQd8yUY0jXrsREZJ7wVGa8JBndeswO8cuytpsRSwMIZQxWY2nHDcf0X3ex%2FiaYBk7Q%3D%3D"; // 공공데이터 포털에서 발급받은 키를 입력
+const SEOUL_API_KEY =
+  "uvMuiapWN925HRbRRjzFfQd8yUY0jXrsREZJ7wVGa8JBndeswO8cuytpsRSwMIZQxWY2nHDcf0X3ex%2FiaYBk7Q%3D%3D"; // 공공데이터 포털에서 발급받은 키를 입력
 
 // API 엔드포인트
 app.get("/", (req, res) => {

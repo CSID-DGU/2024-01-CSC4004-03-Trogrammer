@@ -40,10 +40,7 @@ function FoodSearchPage() {
         <div>
           <h2>검색 결과</h2>
           <p>식당 가격: {result.restaurantPrice}원</p>
-          <p>재료 비용: {result.ingredientCost}원</p>
-          <h3>레시피</h3>
-          <pre>{result.recipe}</pre>
-          <h3>재료 가격</h3>
+          <h3>재료 비용</h3>
           <ul>
             {Object.entries(ingredientPrices).map(([ingredient, price]) => (
               <li key={ingredient}>
@@ -52,6 +49,8 @@ function FoodSearchPage() {
             ))}
           </ul>
           <h3>재료 총 비용: {totalCost}원</h3>
+          <h3>레시피</h3>
+          <pre>{result.recipe}</pre>
         </div>
       )}
     </div>
