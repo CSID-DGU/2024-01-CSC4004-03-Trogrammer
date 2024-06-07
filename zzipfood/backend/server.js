@@ -1,8 +1,7 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const axios = require("axios");
 
 const app = express();
 const port = 5000;
@@ -11,38 +10,38 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB 연결
-mongoose.connect("mongodb://localhost:27017/zzipfood", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+// SQLite 데이터베이스 연결
+const db = new sqlite3.Database(":memory:");
+
+// 데이터베이스 초기화
+db.serialize(() => {
+  db.run(`CREATE TABLE foods (
+    name TEXT,
+    restaurantPrice INTEGER,
+    ingredientCost INTEGER,
+    recipe TEXT
+  )`);
+
+  db.run(`CREATE TABLE ingredients (
+    name TEXT,
+    expiryDate TEXT
+  )`);
+
+  const stmt = db.prepare("INSERT INTO foods VALUES (?, ?, ?, ?)");
+  stmt.run(
+    "김치찌개",
+    8000,
+    5000,
+    "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!"
+  );
+  stmt.run(
+    "된장찌개",
+    7000,
+    4000,
+    "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!"
+  );
+  stmt.finalize();
 });
-
-// 모델 정의
-const Food = mongoose.model(
-  "Food",
-  new mongoose.Schema({
-    name: String,
-    restaurantPrice: Number,
-    ingredientCost: Number,
-    recipe: String,
-  })
-);
-
-const Ingredient = mongoose.model(
-  "Ingredient",
-  new mongoose.Schema({
-    name: String,
-    expiryDate: Date,
-  })
-);
-
-// 서울특별시농수산식품공사 API
-const SEOUL_API_URL = "https://api.seoul.go.kr/api/sub-key";
-const SEOUL_API_KEY = "YOUR_SEOUL_API_KEY";
-
-// 한국농수산식품유통공사 API
-const AT_API_URL = "https://api.at.or.kr/openapi/ats-service-key";
-const AT_API_KEY = "YOUR_AT_API_KEY";
 
 // API 엔드포인트
 app.get("/", (req, res) => {
@@ -50,50 +49,47 @@ app.get("/", (req, res) => {
 });
 
 // 음식 검색 API
-app.get("/api/foods/:name", async (req, res) => {
-  try {
-    const food = await Food.findOne({ name: req.params.name });
-    if (!food) return res.status(404).send("Food not found");
-    res.send(food);
-  } catch (error) {
-    res.status(500).send("Error fetching food");
-  }
-});
-
-// 식재료 가격 API
-app.get("/api/ingredient-price/:name", async (req, res) => {
-  try {
-    // 서울특별시농수산식품공사 API 호출
-    const seoulResponse = await axios.get(
-      `${SEOUL_API_URL}?ServiceKey=${SEOUL_API_KEY}&item=${req.params.name}`
-    );
-    const seoulPrice = seoulResponse.data.price;
-
-    // 한국농수산식품유통공사 API 호출
-    const atResponse = await axios.get(
-      `${AT_API_URL}?ServiceKey=${AT_API_KEY}&item=${req.params.name}`
-    );
-    const atPrice = atResponse.data.price;
-
-    const price = (seoulPrice + atPrice) / 2; // 두 가격의 평균을 사용
-
-    res.send({ name: req.params.name, price });
-  } catch (error) {
-    console.error("Error fetching ingredient price:", error);
-    res.status(500).send("Error fetching ingredient price");
-  }
+app.get("/api/foods/:name", (req, res) => {
+  const name = req.params.name;
+  db.get("SELECT * FROM foods WHERE name = ?", [name], (err, row) => {
+    if (err) {
+      res.status(500).send("Error fetching food");
+    } else if (!row) {
+      res.status(404).send("Food not found");
+    } else {
+      res.send(row);
+    }
+  });
 });
 
 // 냉장고 재료 API
-app.get("/api/ingredients", async (req, res) => {
-  const ingredients = await Ingredient.find().sort({ expiryDate: 1 });
-  res.send(ingredients);
+app.get("/api/ingredients", (req, res) => {
+  db.all(
+    "SELECT * FROM ingredients ORDER BY expiryDate ASC",
+    [],
+    (err, rows) => {
+      if (err) {
+        res.status(500).send("Error fetching ingredients");
+      } else {
+        res.send(rows);
+      }
+    }
+  );
 });
 
-app.post("/api/ingredients", async (req, res) => {
-  const ingredient = new Ingredient(req.body);
-  await ingredient.save();
-  res.send(ingredient);
+app.post("/api/ingredients", (req, res) => {
+  const { name, expiryDate } = req.body;
+  db.run(
+    "INSERT INTO ingredients (name, expiryDate) VALUES (?, ?)",
+    [name, expiryDate],
+    function (err) {
+      if (err) {
+        res.status(500).send("Error adding ingredient");
+      } else {
+        res.send({ id: this.lastID });
+      }
+    }
+  );
 });
 
 // 서버 시작
