@@ -3,6 +3,7 @@ const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const axios = require("axios");
+const path = require("path");
 
 const app = express();
 const port = 5000;
@@ -11,19 +12,22 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// SQLite 데이터베이스 파일 경로
+const dbPath = path.resolve(__dirname, "zzipfood.db");
+
 // SQLite 데이터베이스 연결
-const db = new sqlite3.Database(":memory:");
+const db = new sqlite3.Database(dbPath);
 
 // 데이터베이스 초기화
 db.serialize(() => {
-  db.run(`CREATE TABLE foods (
+  db.run(`CREATE TABLE IF NOT EXISTS foods (
     name TEXT,
     restaurantPrice INTEGER,
     ingredientCost INTEGER,
     recipe TEXT
   )`);
 
-  db.run(`CREATE TABLE ingredients (
+  db.run(`CREATE TABLE IF NOT EXISTS ingredients (
     name TEXT,
     expiryDate TEXT
   )`);
@@ -44,10 +48,8 @@ db.serialize(() => {
   stmt.finalize();
 });
 
-// 한국농수산식품유통공사 API 키
+// 공공데이터 API 키
 const AT_API_KEY = "YOUR_AT_API_KEY"; // 공공데이터 포털에서 발급받은 키를 입력
-
-// 서울특별시농수산식품공사 API 키
 const SEOUL_API_KEY = "YOUR_SEOUL_API_KEY"; // 공공데이터 포털에서 발급받은 키를 입력
 
 // API 엔드포인트
@@ -76,9 +78,13 @@ app.get("/api/ingredient-price/:name", async (req, res) => {
 
     // 한국농수산식품유통공사 API 호출
     const atResponse = await axios.get(
-      `https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_cert_key=${AT_API_KEY}&p_cert_id=your_cert_id&p_returntype=json&p_product_cls_code=01&p_start_day=2022-01-01&p_end_day=2022-12-31`
+      `https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_cert_key=${AT_API_KEY}&p_cert_id=your_cert_id&p_returntype=json&p_product_cls_code=01&p_start_day=2022-01-01&p_end_day=2022-12-31&p_item_code=${encodeURIComponent(
+        name
+      )}`
     );
-    const atPrice = atResponse.data.price;
+    const atPrices = atResponse.data.data.item;
+    const atPrice =
+      atPrices && atPrices.length > 0 ? parseInt(atPrices[0].dpr1, 10) : null;
 
     // 서울특별시농수산식품공사 API 호출
     const seoulResponse = await axios.get(
@@ -86,12 +92,18 @@ app.get("/api/ingredient-price/:name", async (req, res) => {
         name
       )}`
     );
+    const seoulPrices = seoulResponse.data.ListNecessariesPricesService.row;
     const seoulPrice =
-      seoulResponse.data.ListNecessariesPricesService.row[0].M_PRICE;
+      seoulPrices && seoulPrices.length > 0
+        ? parseInt(seoulPrices[0].M_PRICE, 10)
+        : null;
 
-    const price = (atPrice + seoulPrice) / 2; // 두 가격의 평균을 사용
-
-    res.send({ name, price });
+    if (atPrice && seoulPrice) {
+      const price = (atPrice + seoulPrice) / 2; // 두 가격의 평균을 사용
+      res.send({ name, price });
+    } else {
+      res.status(404).send("Price not found");
+    }
   } catch (error) {
     console.error("Error fetching ingredient price:", error);
     res.status(500).send("Error fetching ingredient price");
