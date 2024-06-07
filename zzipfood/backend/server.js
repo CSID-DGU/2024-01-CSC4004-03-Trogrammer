@@ -141,11 +141,17 @@ app.get("/api/ingredient-prices/:name", async (req, res) => {
       } else {
         const ingredients = row.ingredients.split(", ");
         const prices = {};
+        let totalCost = 0;
+
         for (const ingredient of ingredients) {
           const price = await getIngredientPrice(ingredient);
           prices[ingredient] = price;
+          if (price) {
+            totalCost += price;
+          }
         }
-        res.send(prices);
+
+        res.send({ prices, totalCost });
       }
     }
   );
