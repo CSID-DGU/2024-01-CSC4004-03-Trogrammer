@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.mysite.sbb.mapper.IngredientsMapper">
+	<!--유통기한 지남-->
+  <select id="past_Ingredients" resultType="com.mysite.sbb.dto.Ingredients">
+    <![CDATA[SELECT * FROM ingredients
+	WHERE ExpirationDate < DATE_FORMAT(CURDATE(), '%Y%m%d')]]>
+  </select>
+  
+	<!--유통기한 3일 이하-->
+  <select id="three_Ingredients" resultType="com.mysite.sbb.dto.Ingredients">
+    <![CDATA[SELECT * FROM ingredients
+	WHERE ExpirationDate BETWEEN DATE_FORMAT(CURDATE(),'%Y%m%d') AND DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 3 DAY),'%Y%m%d')]]>
+  </select>
+	
+	<!--유통기한 3일 초과 -5일 이하-->
+  <select id="threetofive_Ingredients" resultType="com.mysite.sbb.dto.Ingredients">
+    <![CDATA[SELECT * FROM ingredients
+	WHERE ExpirationDate BETWEEN DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 4 DAY),'%Y%m%d') AND DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 5 DAY),'%Y%m%d')]]>
+  </select>
+  
+  	<!--유통기한 5일 초과-->
+  <select id="overfive_Ingredients" resultType="com.mysite.sbb.dto.Ingredients">
+    <![CDATA[SELECT * FROM ingredients
+	WHERE ExpirationDate > DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 6 DAY),'%Y%m%d')]]>
+  </select>
+  
+  <!--냉장고 식재료 가져오기-->
+   <select id="selingredient" resultType="com.mysite.sbb.dto.Ingredients">
+    	SELECT id, ingrename, quantity, expirationdate FROM ingredients
+    	order by id
+  </select>
+  
+  <!--냉장고 식재료 추가하기-->
+   <insert id="postingredient" parameterType = "com.mysite.sbb.dto.Ingredients">
+    	INSERT INTO ingredients(ingrename, quantity, expirationdate) 
+    	VALUE(#{ingrename}, #{quantity}, #{expirationdate})
+    	<selectKey resultType="int" keyProperty="id" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
+  </insert>
+  
+  <!--냉장고 식재료 수정하기-->
+   <update id="putingredient">
+    	UPDATE ingredients
+		SET ingrename = #{ingrename},
+			quantity = #{quantity},
+    		expirationdate = #{expirationdate}
+		WHERE ID = #{id}
+   </update>
+  
+   <!--냉장고 식재료 삭제하기-->
+   <delete id="delingredient">
+    	DELETE FROM ingredients
+    	WHERE id = #{id}
+  </delete>
+  
+</mapper>
