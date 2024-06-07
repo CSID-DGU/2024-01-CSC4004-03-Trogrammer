@@ -5,6 +5,7 @@ import "../App.css";
 function FoodSearchPage() {
   const [food, setFood] = useState("");
   const [result, setResult] = useState(null);
+  const [ingredientPrices, setIngredientPrices] = useState({});
 
   const handleSearch = async () => {
     try {
@@ -12,6 +13,11 @@ function FoodSearchPage() {
         `http://localhost:5000/api/foods/${food}`
       );
       setResult(foodResponse.data);
+
+      const pricesResponse = await axios.get(
+        `http://localhost:5000/api/ingredient-prices/${food}`
+      );
+      setIngredientPrices(pricesResponse.data);
     } catch (error) {
       console.error("Error fetching the food data:", error);
     }
@@ -35,6 +41,14 @@ function FoodSearchPage() {
           <p>재료 비용: {result.ingredientCost}원</p>
           <h3>레시피</h3>
           <pre>{result.recipe}</pre>
+          <h3>재료 가격</h3>
+          <ul>
+            {Object.entries(ingredientPrices).map(([ingredient, price]) => (
+              <li key={ingredient}>
+                {ingredient}: {price ? `${price}원` : "가격 정보 없음"}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
