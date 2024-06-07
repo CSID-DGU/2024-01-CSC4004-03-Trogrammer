@@ -7,19 +7,20 @@ const path = require("path");
 const app = express();
 const port = 5000;
 
-// Middleware
+// Middleware 설정
 app.use(cors());
 app.use(bodyParser.json());
 
-// SQLite 데이터베이스 파일 경로
+// SQLite 데이터베이스 파일 경로 설정
 const dbPath = path.resolve(__dirname, "zzipfood.db");
 
 // SQLite 데이터베이스 연결
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
-    console.error("Error opening database", err);
+    console.error("Database connection error:", err.message);
   } else {
-    // 데이터베이스 초기화
+    console.log("Connected to the SQLite database");
+    // 데이터베이스 초기화 및 데이터 삽입
     db.serialize(() => {
       db.run("DROP TABLE IF EXISTS foods");
       db.run("DROP TABLE IF EXISTS ingredients");
@@ -35,18 +36,18 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
       db.run(`CREATE TABLE IF NOT EXISTS ingredients (
         name TEXT,
-        price INTEGER
+        price INTEGER,
+        expiryDate TEXT
       )`);
 
       // 초기 데이터 삽입
       db.get("SELECT COUNT(*) AS count FROM foods", (err, row) => {
         if (err) {
-          console.error("Error checking foods table", err);
+          console.error("Error checking foods table:", err);
         } else if (row.count === 0) {
           const stmt = db.prepare(
             "INSERT INTO foods (name, restaurantName, restaurantPrice, ingredientCost, recipe, ingredients) VALUES (?, ?, ?, ?, ?, ?)"
           );
-          // 김치찌개
           stmt.run(
             "김치찌개",
             "한식당",
@@ -72,7 +73,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
             "김치, 돼지고기, 두부, 양파, 대파, 고춧가루"
           );
 
-          // 된장찌개
           stmt.run(
             "된장찌개",
             "한식당",
@@ -98,7 +98,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
             "된장, 두부, 애호박, 고추"
           );
 
-          // 비빔밥
           stmt.run(
             "비빔밥",
             "한식당",
@@ -124,7 +123,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
             "밥, 고추장, 소고기, 시금치, 당근, 콩나물, 계란"
           );
 
-          // 불고기
           stmt.run(
             "불고기",
             "고기집",
@@ -150,7 +148,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
             "소고기, 양파, 당근, 대파, 마늘, 간장, 설탕"
           );
 
-          // 김밥
           stmt.run(
             "김밥",
             "분식집",
@@ -176,7 +173,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
             "김, 밥, 단무지, 시금치, 당근, 햄, 계란"
           );
 
-          // 잡채
           stmt.run(
             "잡채",
             "한식당",
@@ -208,34 +204,33 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
       db.get("SELECT COUNT(*) AS count FROM ingredients", (err, row) => {
         if (err) {
-          console.error("Error checking ingredients table", err);
+          console.error("Error checking ingredients table:", err);
         } else if (row.count === 0) {
           const stmt = db.prepare(
-            "INSERT INTO ingredients (name, price) VALUES (?, ?)"
+            "INSERT INTO ingredients (name, price, expiryDate) VALUES (?, ?, ?)"
           );
-          stmt.run("김치", 2000);
-          stmt.run("돼지고기", 3000);
-          stmt.run("두부", 1000);
-          stmt.run("양파", 500);
-          stmt.run("대파", 500);
-          stmt.run("고춧가루", 1000);
-          stmt.run("된장", 1500);
-          stmt.run("애호박", 1000);
-          stmt.run("고추", 500);
-          stmt.run("밥", 1000);
-          stmt.run("고추장", 500);
-          stmt.run("소고기", 4000);
-          stmt.run("시금치", 500);
-          stmt.run("당근", 300);
-          stmt.run("콩나물", 300);
-          stmt.run("계란", 500);
-          stmt.run("마늘", 200);
-          stmt.run("간장", 200);
-          stmt.run("설탕", 100);
-          stmt.run("김", 500);
-          stmt.run("단무지", 300);
-          stmt.run("햄", 500);
-          stmt.run("당면", 1500);
+          stmt.run("김치", 2000, "2024-12-01");
+          stmt.run("돼지고기", 3000, "2024-12-05");
+          stmt.run("두부", 1000, "2024-12-10");
+          stmt.run("양파", 500, "2024-12-15");
+          stmt.run("대파", 500, "2024-12-20");
+          stmt.run("고춧가루", 1000, "2024-12-25");
+          stmt.run("된장", 1500, "2024-12-30");
+          stmt.run("애호박", 1000, "2025-01-01");
+          stmt.run("고추", 500, "2025-01-05");
+          stmt.run("밥", 1000, "2025-01-10");
+          stmt.run("고추장", 500, "2025-01-15");
+          stmt.run("소고기", 4000, "2025-01-20");
+          stmt.run("시금치", 1000, "2025-01-25");
+          stmt.run("당근", 500, "2025-01-30");
+          stmt.run("콩나물", 1000, "2025-02-01");
+          stmt.run("계란", 300, "2025-02-05");
+          stmt.run("햄", 1000, "2025-02-10");
+          stmt.run("마늘", 500, "2025-02-15");
+          stmt.run("김", 1000, "2025-02-20");
+          stmt.run("단무지", 500, "2025-02-25");
+          stmt.run("설탕", 500, "2025-03-01");
+
           stmt.finalize();
         }
       });
@@ -243,86 +238,19 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
-// API 엔드포인트
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
-
-// 음식 검색 API
-app.get("/api/foods/:name", (req, res) => {
-  const name = req.params.name;
-  db.all("SELECT * FROM foods WHERE name = ?", [name], (err, rows) => {
-    if (err) {
-      res.status(500).send("Error fetching food");
-    } else if (rows.length === 0) {
-      res.status(404).send("Food not found");
-    } else {
-      res.send(rows);
-    }
-  });
-});
-
-// 재료 가격 API
-app.get("/api/ingredient-prices/:name", (req, res) => {
-  const name = req.params.name;
-  db.get("SELECT ingredients FROM foods WHERE name = ?", [name], (err, row) => {
-    if (err) {
-      res.status(500).send("Error fetching ingredients");
-    } else if (!row) {
-      res.status(404).send("Food not found");
-    } else {
-      const ingredients = row.ingredients.split(", ");
-      const prices = {};
-      let totalCost = 0;
-
-      db.all(
-        "SELECT name, price FROM ingredients WHERE name IN (" +
-          ingredients.map(() => "?").join(",") +
-          ")",
-        ingredients,
-        (err, rows) => {
-          if (err) {
-            res.status(500).send("Error fetching ingredient prices");
-          } else {
-            rows.forEach((ingredient) => {
-              prices[ingredient.name] = ingredient.price;
-              totalCost += ingredient.price;
-            });
-            res.send({ prices, totalCost });
-          }
-        }
-      );
-    }
-  });
-});
-
-// 냉장고 재료 API
+// 냉장고 재료 리스트 가져오기
 app.get("/api/ingredients", (req, res) => {
-  db.all("SELECT * FROM ingredients ORDER BY name ASC", [], (err, rows) => {
+  const sql = "SELECT * FROM ingredients ORDER BY expiryDate";
+  db.all(sql, [], (err, rows) => {
     if (err) {
-      res.status(500).send("Error fetching ingredients");
-    } else {
-      res.send(rows);
+      res.status(500).json({ error: err.message });
+      return;
     }
+    res.json(rows);
   });
-});
-
-app.post("/api/ingredients", (req, res) => {
-  const { name, price } = req.body;
-  db.run(
-    "INSERT INTO ingredients (name, price) VALUES (?, ?)",
-    [name, price],
-    function (err) {
-      if (err) {
-        res.status(500).send("Error adding ingredient");
-      } else {
-        res.send({ id: this.lastID });
-      }
-    }
-  );
 });
 
 // 서버 시작
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
