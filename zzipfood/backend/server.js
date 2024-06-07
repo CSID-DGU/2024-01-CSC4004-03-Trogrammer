@@ -26,6 +26,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
       db.run(`CREATE TABLE IF NOT EXISTS foods (
         name TEXT,
+        restaurantName TEXT,
         restaurantPrice INTEGER,
         ingredientCost INTEGER,
         recipe TEXT,
@@ -43,10 +44,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
           console.error("Error checking foods table", err);
         } else if (row.count === 0) {
           const stmt = db.prepare(
-            "INSERT INTO foods (name, restaurantPrice, ingredientCost, recipe, ingredients) VALUES (?, ?, ?, ?, ?)"
+            "INSERT INTO foods (name, restaurantName, restaurantPrice, ingredientCost, recipe, ingredients) VALUES (?, ?, ?, ?, ?, ?)"
           );
           stmt.run(
             "김치찌개",
+            "한식당",
             8000,
             5000,
             "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!",
@@ -54,6 +56,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
           );
           stmt.run(
             "된장찌개",
+            "한식당",
             7000,
             4000,
             "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!",
@@ -61,6 +64,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
           );
           stmt.run(
             "비빔밥",
+            "한식당",
             9000,
             6000,
             "1. 밥 준비\n2. 야채와 고기와 함께 비비기\n3. 고추장 넣기\n4. 완성!",
@@ -68,6 +72,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
           );
           stmt.run(
             "불고기",
+            "고기집",
             12000,
             7000,
             "1. 소고기 양념하기\n2. 야채와 함께 볶기\n3. 완성!",
@@ -75,6 +80,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
           );
           stmt.run(
             "김밥",
+            "분식집",
             5000,
             3000,
             "1. 김밥 재료 준비\n2. 밥과 재료를 김에 말기\n3. 완성!",
@@ -82,6 +88,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
           );
           stmt.run(
             "잡채",
+            "한식당",
             10000,
             6000,
             "1. 당면 삶기\n2. 고기와 야채 볶기\n3. 당면과 함께 볶기\n4. 완성!",
