@@ -17,14 +17,16 @@ function FridgePage() {
   }, []);
 
   useEffect(() => {
-    axios
-      .get("/api/recommend-recipes")
-      .then((response) => {
-        setRecipes(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching recommended recipes:", error);
-      });
+    if (ingredients.length > 0) {
+      axios
+        .get("/api/recommend-recipes")
+        .then((response) => {
+          setRecipes(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching recommended recipes:", error);
+        });
+    }
   }, [ingredients]);
 
   return (
