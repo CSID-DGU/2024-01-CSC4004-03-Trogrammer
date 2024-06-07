@@ -238,6 +238,54 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
+// 음식 검색 API
+app.get("/api/foods/:name", (req, res) => {
+  const name = req.params.name;
+  db.all("SELECT * FROM foods WHERE name = ?", [name], (err, rows) => {
+    if (err) {
+      res.status(500).send("Error fetching food");
+    } else if (rows.length === 0) {
+      res.status(404).send("Food not found");
+    } else {
+      res.send(rows);
+    }
+  });
+});
+
+// 재료 가격 API
+app.get("/api/ingredient-prices/:name", (req, res) => {
+  const name = req.params.name;
+  db.get("SELECT ingredients FROM foods WHERE name = ?", [name], (err, row) => {
+    if (err) {
+      res.status(500).send("Error fetching ingredients");
+    } else if (!row) {
+      res.status(404).send("Food not found");
+    } else {
+      const ingredients = row.ingredients.split(", ");
+      const prices = {};
+      let totalCost = 0;
+
+      db.all(
+        "SELECT name, price FROM ingredients WHERE name IN (" +
+          ingredients.map(() => "?").join(",") +
+          ")",
+        ingredients,
+        (err, rows) => {
+          if (err) {
+            res.status(500).send("Error fetching ingredient prices");
+          } else {
+            rows.forEach((ingredient) => {
+              prices[ingredient.name] = ingredient.price;
+              totalCost += ingredient.price;
+            });
+            res.send({ prices, totalCost });
+          }
+        }
+      );
+    }
+  });
+});
+
 // 냉장고 재료 리스트 가져오기
 app.get("/api/ingredients", (req, res) => {
   const sql = "SELECT * FROM ingredients ORDER BY expiryDate";
