@@ -2,6 +2,7 @@ const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const axios = require("axios");
 
 const app = express();
 const port = 5000;
@@ -43,6 +44,12 @@ db.serialize(() => {
   stmt.finalize();
 });
 
+// 한국농수산식품유통공사 API 키
+const AT_API_KEY = "YOUR_AT_API_KEY"; // 공공데이터 포털에서 발급받은 키를 입력
+
+// 서울특별시농수산식품공사 API 키
+const SEOUL_API_KEY = "YOUR_SEOUL_API_KEY"; // 공공데이터 포털에서 발급받은 키를 입력
+
 // API 엔드포인트
 app.get("/", (req, res) => {
   res.send("Hello, world!");
@@ -60,6 +67,35 @@ app.get("/api/foods/:name", (req, res) => {
       res.send(row);
     }
   });
+});
+
+// 식재료 가격 API
+app.get("/api/ingredient-price/:name", async (req, res) => {
+  try {
+    const name = req.params.name;
+
+    // 한국농수산식품유통공사 API 호출
+    const atResponse = await axios.get(
+      `https://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_cert_key=${AT_API_KEY}&p_cert_id=your_cert_id&p_returntype=json&p_product_cls_code=01&p_start_day=2022-01-01&p_end_day=2022-12-31`
+    );
+    const atPrice = atResponse.data.price;
+
+    // 서울특별시농수산식품공사 API 호출
+    const seoulResponse = await axios.get(
+      `http://openapi.seoul.go.kr:8088/${SEOUL_API_KEY}/json/ListNecessariesPricesService/1/5/${encodeURIComponent(
+        name
+      )}`
+    );
+    const seoulPrice =
+      seoulResponse.data.ListNecessariesPricesService.row[0].M_PRICE;
+
+    const price = (atPrice + seoulPrice) / 2; // 두 가격의 평균을 사용
+
+    res.send({ name, price });
+  } catch (error) {
+    console.error("Error fetching ingredient price:", error);
+    res.status(500).send("Error fetching ingredient price");
+  }
 });
 
 // 냉장고 재료 API
