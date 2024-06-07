@@ -6,6 +6,7 @@ function FoodSearchPage() {
   const [food, setFood] = useState("");
   const [result, setResult] = useState(null);
   const [ingredientPrices, setIngredientPrices] = useState({});
+  const [totalCost, setTotalCost] = useState(0);
 
   const handleSearch = async () => {
     try {
@@ -17,7 +18,8 @@ function FoodSearchPage() {
       const pricesResponse = await axios.get(
         `http://localhost:5000/api/ingredient-prices/${food}`
       );
-      setIngredientPrices(pricesResponse.data);
+      setIngredientPrices(pricesResponse.data.prices);
+      setTotalCost(pricesResponse.data.totalCost);
     } catch (error) {
       console.error("Error fetching the food data:", error);
     }
@@ -49,6 +51,7 @@ function FoodSearchPage() {
               </li>
             ))}
           </ul>
+          <h3>재료 총 비용: {totalCost}원</h3>
         </div>
       )}
     </div>
