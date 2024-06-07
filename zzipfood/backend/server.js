@@ -32,20 +32,10 @@ db.serialize(() => {
     expiryDate TEXT
   )`);
 
-  const stmt = db.prepare("INSERT INTO foods VALUES (?, ?, ?, ?)");
-  stmt.run(
-    "김치찌개",
-    8000,
-    5000,
-    "1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!"
-  );
-  stmt.run(
-    "된장찌개",
-    7000,
-    4000,
-    "1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!"
-  );
-  stmt.finalize();
+  db.run(`INSERT INTO foods (name, restaurantPrice, ingredientCost, recipe) VALUES
+    ('김치찌개', 8000, 5000, '1. 김치 준비\n2. 돼지고기와 함께 끓이기\n3. 완성!'),
+    ('된장찌개', 7000, 4000, '1. 된장 준비\n2. 야채와 함께 끓이기\n3. 완성!')
+  `);
 });
 
 // 공공데이터 API 키
