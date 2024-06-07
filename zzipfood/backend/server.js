@@ -2,7 +2,6 @@ const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const axios = require("axios");
 const path = require("path");
 
 const app = express();
@@ -22,6 +21,9 @@ const db = new sqlite3.Database(dbPath, (err) => {
   } else {
     // 데이터베이스 초기화
     db.serialize(() => {
+      db.run("DROP TABLE IF EXISTS foods");
+      db.run("DROP TABLE IF EXISTS ingredients");
+
       db.run(`CREATE TABLE IF NOT EXISTS foods (
         name TEXT,
         restaurantPrice INTEGER,
