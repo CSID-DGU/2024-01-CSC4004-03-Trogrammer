@@ -216,7 +216,7 @@ public static class Database {
         }),
 
         new Restaurant("황토골", new List<Menuset>{
-			new Menuset("김치찌개", 8000.0f);
+			new Menuset("김치찌개", 8000.0f),
             new Menuset("된장찌개", 8000.0f),
         }),
 

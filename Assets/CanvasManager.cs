@@ -23,7 +23,7 @@ public class CanvasManager : MonoBehaviour {
 			string date = PlayerPrefs.GetString("date" + i);
 			DateTime expirationDate = DateTime.ParseExact(date, "yyyy.MM.dd", null);
 			FoodObject foodObject = AddFood(name, expirationDate);
-			foodList.Add(foodObject);
+			listFood.Add(foodObject);
 		}
 
         InitMain();
@@ -58,6 +58,11 @@ public class CanvasManager : MonoBehaviour {
 			#endif
 		}
 		else if (pageRefrigerator.gameObject.activeSelf) {
+			if (!buttonAddFood.gameObject.activeSelf) {
+				buttonAddFood .gameObject.SetActive(true );
+				inputFoodInfo .gameObject.SetActive(false);
+				return;
+			}
 			ChangePageTo(pageMain);
 		}
 		else if (pageRecipe      .gameObject.activeSelf) {
@@ -120,11 +125,11 @@ public class CanvasManager : MonoBehaviour {
 		public string name;
 		public DateTime expirationDate;
 	}
-	List<FoodObject> foodList = new List<FoodObject>();
+	List<FoodObject> listFood = new List<FoodObject>();
 
 	void InitRefrigerator() {
 		pageRefrigerator.gameObject.SetActive(false);
-		buttonAddFood.gameObject.SetActive(true);
+		buttonAddFood.gameObject.SetActive(true );
 		inputFoodInfo.gameObject.SetActive(false);
 		RefreshFood();
 
@@ -140,23 +145,10 @@ public class CanvasManager : MonoBehaviour {
 			inputFoodYear .text = date.ToString("yyyy");
 			inputFoodMonth.text = date.ToString(  "MM");
 			inputFoodDay  .text = date.ToString(  "dd");
+			RefreshInputFoodName();
 		});
 		buttonChangeInputField.onClick.AddListener(() => {
-			buttonChangeInputField.transform.GetChild(0).TryGetComponent(out text);
-			if (inputFoodName.gameObject.activeSelf) {
-				text.text = "식재료명";
-				inputFoodName .gameObject.SetActive(false);
-				inputFoodYear .gameObject.SetActive(true );
-				inputFoodMonth.gameObject.SetActive(true );
-				inputFoodDay  .gameObject.SetActive(true );
-			}
-			else {
-				text.text = "유통기한";
-				inputFoodName .gameObject.SetActive(true );
-				inputFoodYear .gameObject.SetActive(false);
-				inputFoodMonth.gameObject.SetActive(false);
-				inputFoodDay  .gameObject.SetActive(false);
-			}
+			RefreshInputFoodName(!inputFoodName.gameObject.activeSelf);
 		});
 		buttonSubmitFood.onClick.AddListener(() => {
 			if (inputFoodName.text == "") return;
@@ -173,9 +165,27 @@ public class CanvasManager : MonoBehaviour {
 				date = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 			}
 			FoodObject foodObject = AddFood(inputFoodName.text, date);
-			foodList.Add(foodObject);
+			listFood.Add(foodObject);
 			RefreshFood();
 		});
+	}
+
+	void RefreshInputFoodName(bool value = true) {
+		buttonChangeInputField.transform.GetChild(0).TryGetComponent(out text);
+		if (value) {
+			text.text = "유통기한";
+			inputFoodName .gameObject.SetActive(true );
+			inputFoodYear .gameObject.SetActive(false);
+			inputFoodMonth.gameObject.SetActive(false);
+			inputFoodDay  .gameObject.SetActive(false);
+		}
+		else {
+			text.text = "식재료명";
+			inputFoodName .gameObject.SetActive(false);
+			inputFoodYear .gameObject.SetActive(true );
+			inputFoodMonth.gameObject.SetActive(true );
+			inputFoodDay  .gameObject.SetActive(true );
+		}
 	}
 
 	FoodObject AddFood(string name, DateTime date) {
@@ -190,7 +200,7 @@ public class CanvasManager : MonoBehaviour {
 		foodObject.gameObject.transform.GetChild(2).TryGetComponent(out button);
 		button.onClick.AddListener(() => {
 			Destroy(foodObject.gameObject);
-			foodList.Remove(foodObject);
+			listFood.Remove(foodObject);
 			RefreshFood();
 		});
 		return foodObject;
@@ -205,26 +215,26 @@ public class CanvasManager : MonoBehaviour {
 
 		int j = 0;
 		int k = 0;
-		for (int i = 0; i < foodList.Count; i++) {
-			foodList[i].gameObject.TryGetComponent(out rect);
-			if (date <= foodList[i].expirationDate) {
-				foodList[i].gameObject.transform.SetParent(contentFood);
+		for (int i = 0; i < listFood.Count; i++) {
+			listFood[i].gameObject.TryGetComponent(out rect);
+			if (date <= listFood[i].expirationDate) {
+				listFood[i].gameObject.transform.SetParent(contentFood);
 				rect.offsetMin = new Vector2(0,   0);
 				rect.offsetMax = new Vector2(0, 100);
 				rect.anchoredPosition = new Vector2(0, -j * 100);
 				j++;
 			}
 			else {
-				foodList[i].gameObject.transform.SetParent(contentFoodDangerous);
+				listFood[i].gameObject.transform.SetParent(contentFoodDangerous);
 				rect.offsetMin = new Vector2(0,   0);
 				rect.offsetMax = new Vector2(0, 100);
 				rect.anchoredPosition = new Vector2(0, -k * 100);
 				k++;
 			}
-			PlayerPrefs.SetString("name" + i, foodList[i].name);
-			PlayerPrefs.SetString("date" + i, foodList[i].expirationDate.ToString("yyyy.MM.dd"));
+			PlayerPrefs.SetString("name" + i, listFood[i].name);
+			PlayerPrefs.SetString("date" + i, listFood[i].expirationDate.ToString("yyyy.MM.dd"));
 		}
-		PlayerPrefs.SetInt("foodCount", foodList.Count);
+		PlayerPrefs.SetInt("foodCount", listFood.Count);
 
 		contentFood         .sizeDelta = new Vector2(0, j * 100);
 		contentFoodDangerous.sizeDelta = new Vector2(0, k * 100);
@@ -273,7 +283,7 @@ public class CanvasManager : MonoBehaviour {
 		public GameObject gameObject;
 		public Database.Recipe recipe;
 	}
-	List<RecipeObject> recipeList = new List<RecipeObject>();
+	List<RecipeObject> listRecipe = new List<RecipeObject>();
 
 	void InitRecipe() {
 		pageRecipe.gameObject.SetActive(false);
@@ -285,10 +295,11 @@ public class CanvasManager : MonoBehaviour {
 			for (int i = 0; i < Database.recipe.Count; i++) {
 				if (Database.recipe[i].name == inputRecipe.text) {
 					PopupRecipe(Database.recipe[i]);
+					exist = true;
 					break;
 				}
 			}
-			if (!exist) ;
+			//if (!exist) ;
 		});
 		buttonKorean.onClick.AddListener(() => {
 			RefreshRecipe(Database.RecipeType.Korean);
@@ -326,15 +337,15 @@ public class CanvasManager : MonoBehaviour {
 		RectTransform contentRecipe;
 		rectRecipe.transform.GetChild(1).GetChild(0).TryGetComponent(out contentRecipe);
 
-		for (int i = recipeList.Count - 1; -1 < i; i--) {
-			Destroy(recipeList[i].gameObject);
-			recipeList.RemoveAt(i);
+		for (int i = listRecipe.Count - 1; -1 < i; i--) {
+			Destroy(listRecipe[i].gameObject);
+			listRecipe.RemoveAt(i);
 		}
 		int j = 0;
 		for (int i = 0; i < Database.recipe.Count; i++) {
 			if (Database.recipe[i].type == type) {
 				RecipeObject recipeObject = AddRecipe(Database.recipe[i], contentRecipe);
-				recipeList.Add(recipeObject);
+				listRecipe.Add(recipeObject);
 				recipeObject.gameObject.TryGetComponent(out rect);
 				rect.anchoredPosition = new Vector2(0, -j * 160);
 				j++;
@@ -351,8 +362,8 @@ public class CanvasManager : MonoBehaviour {
 		textRecipeBool.text = "";
 		for (int i = 0; i < recipe.foodset.Count; i++) {
 			bool exist = false;
-			for (int j = 0; j < foodList.Count; j++) {
-				if (recipe.foodset[i].food.name == foodList[j].name) {
+			for (int j = 0; j < listFood.Count; j++) {
+				if (recipe.foodset[i].food.name == listFood[j].name) {
 					exist = true;
 					break;
 				}
@@ -360,7 +371,7 @@ public class CanvasManager : MonoBehaviour {
 			string unit = Database.ToString(recipe.foodset[i].food.unit);
 			textRecipeFood.text += recipe.foodset[i].food.name + "\n";
 			textRecipeGram.text += recipe.foodset[i].amount + unit + "\n";
-			textRecipeBool.text += exist ? "V \n" : "\n";
+			textRecipeBool.text += exist ? "o\n" : "\n";
 		}
 		selected = recipe;
 	}
@@ -373,10 +384,16 @@ public class CanvasManager : MonoBehaviour {
 	[SerializeField] Canvas pageAnalysis;
 
 	[SerializeField] Text textSelected;
-	[SerializeField] Text textSelectedFood;
-	[SerializeField] Text textSelectedRestaurant;
+	[SerializeField] ScrollRect rectCost;
+	[SerializeField] Text textCostTotal;
+	[SerializeField] ScrollRect rectRestaurant;
 	[SerializeField] RawImage imageRestaurant;
 	[SerializeField] Button buttonOpenURL;
+
+	[SerializeField] GameObject prefabResult;
+
+	List<GameObject> listCost       = new List<GameObject>();
+	List<GameObject> listRestaurant = new List<GameObject>();
 
 	Database.Recipe selected;
 	Database.Restaurant selectedRestaurant;
@@ -389,44 +406,87 @@ public class CanvasManager : MonoBehaviour {
 	}
 
 	void RefreshAnalysis() {
-		textSelected.text = selected.name + " 만드는 데 드는 비용";
-		textSelectedFood.text = "";
+		RectTransform contentCost;
+		RectTransform contentRestaurant;
+		rectCost      .transform.GetChild(1).GetChild(0).TryGetComponent(out contentCost);
+		rectRestaurant.transform.GetChild(1).GetChild(0).TryGetComponent(out contentRestaurant);
+
+		textSelected.text = selected.name;
+
+		for (int i = 0; i < listCost      .Count; i++) Destroy(listCost[i]);
+		for (int i = 0; i < listRestaurant.Count; i++) Destroy(listRestaurant[i]);
 
 		bool exist = false;
 		float total = 0.0f;
+		int count = 0;
 		for (int i = 0; i < selected.foodset.Count; i++) {
 			exist = false;
-			for (int j = 0; j < foodList.Count; j++) {
-				if (selected.foodset[i].food.name == foodList[j].name) {
+			for (int j = 0; j < listFood.Count; j++) {
+				if (selected.foodset[i].food.name == listFood[j].name) {
 					exist = true;
 					break;
 				}
 			}
 			if (exist) continue;
+			GameObject prefab = Instantiate(prefabResult, contentCost);
+			prefab.gameObject.TryGetComponent(out rect);
+			rect.anchoredPosition = new Vector2(0, -count * 100);
+			listCost.Add(prefab);
+			count++;
 			float amount = selected.foodset[i].amount;
-			float price  = selected.foodset[i].food.price / selected.foodset[i].food.amount * amount;
+			float price = selected.foodset[i].food.price / selected.foodset[i].food.amount * amount;
 			string unit = Database.ToString(selected.foodset[i].food.unit);
-			textSelectedFood.text += selected.foodset[i].food.name + " ";
-			textSelectedFood.text += amount.ToString("F0") + unit + " : ";
-			textSelectedFood.text += price.ToString("F0") + "원\n";
+			prefab.transform.GetChild(0).TryGetComponent(out text);
+			text.text = selected.foodset[i].food.name;
+			prefab.transform.GetChild(1).TryGetComponent(out text);
+			text.text = amount.ToString("F0") + unit + " : " + price.ToString("F0") + "원";
 			total += price;
 		}
-		textSelectedFood.text += "합계 : " + total + "원";
+		contentCost.sizeDelta = new Vector2(0, count * 100);
+		textCostTotal.text = total.ToString("F0") + "원";
 
 		exist = false;
-		textSelectedRestaurant.text = "";
+		total = -1;
+		count = 0;
 		for (int i = 0; i < Database.restaurant.Count; i++) {
 			for (int j = 0; j < Database.restaurant[i].menuset.Count; j++) {
-				if (Database.restaurant[i].menuset[j].recipe.name.Contains(selected.name)) {
-					selectedRestaurant = Database.restaurant[i];
-					textSelectedRestaurant.text += Database.restaurant[i].name + " : ";
-					textSelectedRestaurant.text += Database.restaurant[i].menuset[j].price + "원\n";
-					exist = true;
+				try {
+					if (Database.restaurant[i].menuset[j].recipe.name.Contains(selected.name)) {
+						GameObject prefab = Instantiate(prefabResult, contentRestaurant);
+						prefab.gameObject.TryGetComponent(out rect);
+						rect.anchoredPosition = new Vector2(0, -count * 100);
+						listRestaurant.Add(prefab);
+						count++;
+						prefab.transform.GetChild(0).TryGetComponent(out text);
+						text.text = Database.restaurant[i].name;
+						prefab.transform.GetChild(1).TryGetComponent(out text);
+						text.text = Database.restaurant[i].menuset[j].price + "원";
+						exist = true;
+						if (total == -1 || Database.restaurant[i].menuset[j].price < total) {
+							total = Database.restaurant[i].menuset[j].price;
+							selectedRestaurant = Database.restaurant[i];
+						}
+					}
+				}
+				catch {
 				}
 			}
 		}
-		if (!exist) textSelectedRestaurant.text = "주변에 이 음식을 파는 식당이 없습니다.";
-		buttonOpenURL.gameObject.SetActive(exist);
+		contentRestaurant.sizeDelta = new Vector2(0, count * 100);
+		buttonOpenURL.onClick.RemoveAllListeners();
+		buttonOpenURL.transform.GetChild(0).TryGetComponent(out text);
+		if (exist) {
+			text.text = "웹에서 "+ selectedRestaurant.name + " 보기";
+			buttonOpenURL.onClick.AddListener(() => {
+				Application.OpenURL(selectedRestaurant.url);
+			});
+		}
+		else {
+			text.text = "주변에 이 음식을 파는 식당이 없습니다.";
+			buttonOpenURL.onClick.AddListener(() => {
+				Back();
+			});
+		}
 	}
 
 
