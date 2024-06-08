@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine.UIElements;
+
 public static class Database {
 
     public enum Unit {
@@ -20,20 +23,22 @@ public static class Database {
         public float amount;
         public Unit unit;
         public float price;
+		public string url;
         public Food(string name, float amount, Unit unit, float price) {
             this.name = name;
             this.amount = amount;
             this.unit = unit;
             this.price = price;
+			this.url = "https://www.coupang.com/np/search?component=&q=" + name;
         }
     }
 
     public readonly static List<Food> food = new List<Food>{
-        new Food("김치", 100.0f, Unit.gram,  1000.0f),
-        new Food("대파", 100.0f, Unit.piece, 1000.0f),
-        new Food("두부", 100.0f, Unit.piece, 1000.0f),
-        new Food("계란", 100.0f, Unit.piece, 1000.0f),
-        new Food("소금", 100.0f, Unit.gram,  1000.0f),
+        new Food("김치", 100.0f, Unit.gram,   630.0f),
+        new Food("대파",  10.0f, Unit.piece, 2720.0f),
+        new Food("두부",   1.0f, Unit.piece, 1750.0f),
+        new Food("계란",  30.0f, Unit.piece, 6990.0f),
+        new Food("소금", 100.0f, Unit.gram,   950.0f),
 
         new Food("된장", 100.0f, Unit.gram,  2000.0f),
         new Food("감자", 200.0f, Unit.gram,  1500.0f),
@@ -325,12 +330,14 @@ public static class Database {
     };
 
     public struct Menuset {
+		public string name;
         public Recipe recipe;
         public float price;
         public string category;
         public Menuset(string name, float price, string category) {
-            this.recipe = Database.recipe.Find(x => x.name == name);
-            this.price = price;
+			this.name = name;
+            this.recipe = Database.recipe.Find(x => x.name == category);
+			this.price = price;
             this.category = category;
         }
     }
@@ -383,7 +390,7 @@ public static class Database {
         new Restaurant("스담", new List<Menuset>{
             new Menuset("초밥", 18000.0f, "초밥"),
         }),
-        new Restaurant("낙원의소바", new List<Menuset>{
+		new Restaurant("낙원의소바", new List<Menuset>{
             new Menuset("돈까스", 15000.0f, "돈까스"),
             new Menuset("로스카츠", 13000.0f, "돈까스"),
         }),
