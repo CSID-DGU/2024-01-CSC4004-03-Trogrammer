@@ -1,8 +1,0 @@
-C:\Users\csgae\Documents\GitHub\2024-01-CSC4004-03-Trogrammer\MyApiProject\obj\Debug\net8.0\MyApiProject.csproj.AssemblyReference.cache
-C:\Users\csgae\Documents\GitHub\2024-01-CSC4004-03-Trogrammer\MyApiProject\obj\Debug\net8.0\MyApiProject.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\csgae\Documents\GitHub\2024-01-CSC4004-03-Trogrammer\MyApiProject\obj\Debug\net8.0\MyApiProject.AssemblyInfoInputs.cache
-C:\Users\csgae\Documents\GitHub\2024-01-CSC4004-03-Trogrammer\MyApiProject\obj\Debug\net8.0\MyApiProject.AssemblyInfo.cs
-C:\Users\csgae\Documents\GitHub\2024-01-CSC4004-03-Trogrammer\MyApiProject\obj\Debug\net8.0\MyApiProject.csproj.CoreCompileInputs.cache
-C:\Users\csgae\Documents\GitHub\2024-01-CSC4004-03-Trogrammer\MyApiProject\obj\Debug\net8.0\MyApiProject.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\csgae\Documents\GitHub\2024-01-CSC4004-03-Trogrammer\MyApiProject\obj\Debug\net8.0\MyApiProject.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\csgae\Documents\GitHub\2024-01-CSC4004-03-Trogrammer\MyApiProject\obj\Debug\net8.0\MyApiProject.sourcelink.json
