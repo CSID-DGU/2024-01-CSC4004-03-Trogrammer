@@ -121,7 +121,7 @@ public static class Database {
             new Foodset("짜장소스", 200.0f),
             new Foodset("돼지고기", 100.0f),
             new Foodset("양파", 1.0f),
-            new Foodset("짜장면면", 200.0f),
+            new Foodset("짜장면", 200.0f),
         }),
 
         new Recipe("불고기", RecipeType.Korean, new List<Foodset>{
