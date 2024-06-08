@@ -77,6 +77,12 @@ public class CanvasManager : MonoBehaviour {
 		}
 	}
 
+	static string AddComma(float value) {
+		string result = value.ToString("F0");
+		for (int i = result.Length - 3; 0 < i; i -= 3) result = result.Insert(i, ",");
+		return result;
+	}
+
 
 
 
@@ -370,7 +376,7 @@ public class CanvasManager : MonoBehaviour {
 			}
 			string unit = Database.ToString(recipe.foodset[i].food.unit);
 			textRecipeFood.text += recipe.foodset[i].food.name + "\n";
-			textRecipeGram.text += recipe.foodset[i].amount + unit + "\n";
+			textRecipeGram.text += AddComma(recipe.foodset[i].amount) + unit + "\n";
 			textRecipeBool.text += exist ? "o\n" : "\n";
 		}
 		selected = recipe;
@@ -439,11 +445,11 @@ public class CanvasManager : MonoBehaviour {
 			prefab.transform.GetChild(0).TryGetComponent(out text);
 			text.text = selected.foodset[i].food.name;
 			prefab.transform.GetChild(1).TryGetComponent(out text);
-			text.text = amount.ToString("F0") + unit + " : " + price.ToString("F0") + "원";
+			text.text = AddComma(amount) + unit + " : " + AddComma(price) + "원";
 			total += price;
 		}
 		contentCost.sizeDelta = new Vector2(0, count * 100);
-		textCostTotal.text = total.ToString("F0") + "원";
+		textCostTotal.text = AddComma(total) + "원";
 
 		exist = false;
 		total = -1;
@@ -460,7 +466,7 @@ public class CanvasManager : MonoBehaviour {
 						prefab.transform.GetChild(0).TryGetComponent(out text);
 						text.text = Database.restaurant[i].name;
 						prefab.transform.GetChild(1).TryGetComponent(out text);
-						text.text = Database.restaurant[i].menuset[j].price + "원";
+						text.text = AddComma(Database.restaurant[i].menuset[j].price) + "원";
 						exist = true;
 						if (total == -1 || Database.restaurant[i].menuset[j].price < total) {
 							total = Database.restaurant[i].menuset[j].price;
