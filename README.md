@@ -1,6 +1,6 @@
 # 🥗 자취생의 식탁
 
-- 배포 URL :
+- 배포 URL : https://drive.google.com/file/d/1GsngZ_ryKLKt1DPAHNTegqP5PRJJRZNt/view?usp=drive_link
 - Test ID :
 - Test PW :
   <br>
@@ -107,8 +107,27 @@
 
 ### 초기화면
 
+![Screenshot_20240609_023736_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/231e153a-6986-4692-abf4-4aa2ad4ca202)
+
 - asdf
   <br>
+
+### 냉장고 관리 화면
+
+![Screenshot_20240609_023741_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/36658750-ec81-4c4c-9b89-c001a191aae5)
+![Screenshot_20240609_023838_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/471c5b06-e7e2-404a-b40b-61b65062e565)
+
+### 레시피 탐색 화면
+
+![Screenshot_20240609_023847_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/06976668-ad43-443e-93c7-a1626a77e2ae)
+![Screenshot_20240609_023854_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/5da8648a-19e1-41aa-9268-9c90e0202766)
+![Screenshot_20240609_023906_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/0930ca7a-f734-4cd3-8955-087bfbf36fd7)
+
+### 근처 식당 비교 화면
+
+![Screenshot_20240609_023925_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/54edb875-77f8-4827-8a3e-c0222298037b)
+![Screenshot_20240609_025218_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/4944f845-9678-4b28-8745-ad6f9a4aa4b7)
+![Screenshot_20240609_025256_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/248dd9a0-6792-437f-80ff-506bfa535dd5)
 
 ## 6. 프로젝트 후기
 
