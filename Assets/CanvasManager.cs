@@ -135,8 +135,8 @@ public class CanvasManager : MonoBehaviour {
 
 	void InitRefrigerator() {
 		pageRefrigerator.gameObject.SetActive(false);
-		buttonAddFood.gameObject.SetActive(true );
-		inputFoodInfo.gameObject.SetActive(false);
+		buttonAddFood   .gameObject.SetActive(true );
+		inputFoodInfo   .gameObject.SetActive(false);
 		RefreshFood();
 
 		buttonAddFood.onClick.AddListener(() => {
@@ -292,7 +292,7 @@ public class CanvasManager : MonoBehaviour {
 	List<RecipeObject> listRecipe = new List<RecipeObject>();
 
 	void InitRecipe() {
-		pageRecipe.gameObject.SetActive(false);
+		pageRecipe     .gameObject.SetActive(false);
 		rectRecipePopup.gameObject.SetActive(false);
 		RefreshRecipe(Database.RecipeType.Korean);
 
@@ -457,8 +457,18 @@ public class CanvasManager : MonoBehaviour {
 		for (int i = 0; i < Database.restaurant.Count; i++) {
 			for (int j = 0; j < Database.restaurant[i].menuset.Count; j++) {
 				try {
-					if (Database.restaurant[i].menuset[j].recipe.name.Contains(selected.name)) {
+					if (Database.restaurant[i].menuset[j].category == selected.name) {
+						bool e = false;
+						for (int k = 0; k < listRestaurant.Count; k++) {
+							if (listRestaurant[k].name == Database.restaurant[i].name) {
+								e = true;
+								break;
+							}
+						}
+						if (e) continue;
+
 						GameObject prefab = Instantiate(prefabResult, contentRestaurant);
+						prefab.name = Database.restaurant[i].name;
 						prefab.gameObject.TryGetComponent(out rect);
 						rect.anchoredPosition = new Vector2(0, -count * 100);
 						listRestaurant.Add(prefab);
