@@ -456,17 +456,9 @@ public class CanvasManager : MonoBehaviour {
 		count = 0;
 		for (int i = 0; i < Database.restaurant.Count; i++) {
 			for (int j = 0; j < Database.restaurant[i].menuset.Count; j++) {
-				try {
-					if (Database.restaurant[i].menuset[j].category == selected.name) {
-						bool e = false;
-						for (int k = 0; k < listRestaurant.Count; k++) {
-							if (listRestaurant[k].name == Database.restaurant[i].name) {
-								e = true;
-								break;
-							}
-						}
-						if (e) continue;
-
+				if (Database.restaurant[i].menuset[j].category == selected.name) {
+					int k = listRestaurant.Count - 1;
+					if (k == -1 || listRestaurant[k].name != Database.restaurant[i].name) {
 						GameObject prefab = Instantiate(prefabResult, contentRestaurant);
 						prefab.name = Database.restaurant[i].name;
 						prefab.gameObject.TryGetComponent(out rect);
@@ -474,17 +466,21 @@ public class CanvasManager : MonoBehaviour {
 						listRestaurant.Add(prefab);
 						count++;
 						prefab.transform.GetChild(0).TryGetComponent(out text);
-						text.text = Database.restaurant[i].name;
+						text.text = Database.restaurant[i].name + "\n";
 						prefab.transform.GetChild(1).TryGetComponent(out text);
-						text.text = AddComma(Database.restaurant[i].menuset[j].price) + "원";
-						exist = true;
-						if (total == -1 || Database.restaurant[i].menuset[j].price < total) {
-							total = Database.restaurant[i].menuset[j].price;
-							selectedRestaurant = Database.restaurant[i];
-						}
+						text.text = "\n";
 					}
-				}
-				catch {
+					k = listRestaurant.Count - 1;
+					listRestaurant[k].transform.GetChild(0).TryGetComponent(out text);
+					text.text += Database.restaurant[i].menuset[j].recipe.name + "\n";
+					listRestaurant[k].transform.GetChild(1).TryGetComponent(out text);
+					text.text += AddComma(Database.restaurant[i].menuset[j].price) + "원\n";
+					count++;
+					exist = true;
+					if (total == -1 || Database.restaurant[i].menuset[j].price < total) {
+						total = Database.restaurant[i].menuset[j].price;
+						selectedRestaurant = Database.restaurant[i];
+					}
 				}
 			}
 		}
