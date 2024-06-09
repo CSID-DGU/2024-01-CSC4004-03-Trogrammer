@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, FoodRefrigeratorActivity::class.java)
             startActivity(intent)
         }
-
+        
         val buttonChooseFood = findViewById<Button>(R.id.mainChooseFood)
         buttonChooseFood.setOnClickListener {
             val intent = Intent(this, FoodSelectActivity::class.java)

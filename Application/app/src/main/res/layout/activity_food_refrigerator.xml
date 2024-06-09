@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/color_ffffff">
+            android:background="@drawable/color_background">
 
             <LinearLayout
                 android:id="@+id/r3w2fkcmazjk"
@@ -31,25 +31,34 @@
                 android:paddingBottom="118dp">
 
                 <LinearLayout
-                    android:id="@+id/rws6b1fjf6q"
+                    android:id="@+id/rvpej493rsj"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginBottom="48dp"
                     android:background="@drawable/color_db1f30"
-                    android:elevation="4dp"
-                    android:orientation="vertical"
+                    android:paddingVertical="30dp"
                     android:paddingHorizontal="21dp"
-                    android:paddingVertical="30dp">
+                    android:layout_marginBottom="48dp"
+                    android:layout_marginEnd="19dp"
+                    android:elevation="4dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/rmzs6un8bgpa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="15dp"
-                        android:text="OO의 냉장고"
+                        android:id="@+id/rarsywziex2g"
                         android:textColor="#FFFFFF"
-                        android:textSize="24sp" />
+                        android:textSize="24sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="OO의 냉장고"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/rhvp9ojxol9q"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="Comment" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -91,7 +100,7 @@
                             android:paddingVertical="24dp" />
 
                         <Button
-                            android:id="@+id/refrigeratorViewExpirationData"
+                            android:id="@+id/refrigeratorViewExpirationDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="24dp"

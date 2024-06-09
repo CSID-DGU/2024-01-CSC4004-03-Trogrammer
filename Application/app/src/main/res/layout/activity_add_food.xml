@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_food"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:background="@drawable/color_background"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:fillViewport="true"
+            android:id="@+id/rgr0w5xoyu8h"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/color_background">
+
+            <LinearLayout
+                android:id="@+id/r3w2fkcmazjk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF6F6F6"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="106dp"
+                android:paddingBottom="118dp">
+
+                <LinearLayout
+                    android:id="@+id/rvpej493rsj"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/color_db1f30"
+                    android:paddingVertical="30dp"
+                    android:paddingHorizontal="21dp"
+                    android:layout_marginBottom="48dp"
+                    android:layout_marginEnd="19dp"
+                    android:elevation="4dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/rarsywziex2g"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="식재료 추가하기"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/rhvp9ojxol9q"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="Comment" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/r8iiwdi8psxn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="26dp"
+                    android:layout_marginHorizontal="19dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/r8y3bcwnrbzo"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="식재료1" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:id="@+id/hterh456yh45h"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/color_1f1f1f"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:elevation="4dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/erfghefrh6e5r6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/wrhghrdh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="26dp"
+                    android:layout_marginHorizontal="19dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/her45hrtghr"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="식재료2" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:id="@+id/e65hertgrn"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/color_1f1f1f"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:elevation="4dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/e5hrfghdfgh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/jdtghcfgyj"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="26dp"
+                    android:layout_marginHorizontal="19dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/e5jgfhdxf"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="식재료3" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:id="@+id/asdfrt7krt"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/color_1f1f1f"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:elevation="4dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/asdf4w5yht"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/h4w66bwr6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="26dp"
+                    android:layout_marginHorizontal="19dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/dfg3e45y"
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="식재료4" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:id="@+id/sedj5eu4"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/color_1f1f1f"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:elevation="4dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/sged4s5ejj"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/rgs7vzp8j4fa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginHorizontal="98dp"
+            android:background="@drawable/color_1f1f1f"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="4dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingVertical="11dp">
+
+            <TextView
+                android:id="@+id/ru0hwk0t396"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="식재료 추가하기 +"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -60,7 +60,8 @@
             android:gravity="center"
             android:text="냉장고 재료로 음식 만들기"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
@@ -76,7 +77,8 @@
             android:gravity="center"
             android:text="원하는 음식 선택"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

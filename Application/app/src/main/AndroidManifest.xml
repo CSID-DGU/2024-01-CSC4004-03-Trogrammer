@@ -27,6 +27,10 @@
         </activity>
 
         <activity
+
+            android:name=".AddFoodActivity">
+        </activity>
+
             android:name=".FoodSelectActivity">
         </activity>
 
@@ -47,6 +51,10 @@
         </activity>
         <activity
             android:name=".RecommendRecipeActivity">
+        </activity>
+
+        <activity
+            android:name=".FoodSelectActivity">
         </activity>
 
     </application>
