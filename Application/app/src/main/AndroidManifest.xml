@@ -27,8 +27,25 @@
         </activity>
 
         <activity
+
             android:name=".AddFoodActivity">
         </activity>
+
+            android:name=".FoodSelectActivity">
+        </activity>
+
+        <activity
+            android:name=".FoodInformationActivity">
+        </activity>
+
+        <activity
+            android:name=".FoodMadeSelfActivity">
+        </activity>
+
+        <activity
+            android:name=".FoodSearchRestaurantActivity">
+        </activity>
+
         <activity
             android:name=".ViewExpirationDateActivity">
         </activity>
