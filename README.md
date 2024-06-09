@@ -35,10 +35,12 @@
 - **협업 툴**: Slack, Notion, Google Drive
 - **서비스 배포 환경**:
 - **디자인**: Figma
+- **Diagram**: Draw.io
   <br>
 
 ## 2. 프로젝트 구조
-
+- **Flowchart**:
+<img width="655" alt="스크린샷 2024-06-08 오후 9 09 30" src="https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/164312366/a042b8b7-997f-4cd8-857d-2cd9114c326e">
 <br>
 
 ## 3. 역할 분담
