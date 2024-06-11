@@ -1,15 +1,13 @@
 # 🥗 자취생의 식탁
 
 - 배포 URL : https://drive.google.com/file/d/1GsngZ_ryKLKt1DPAHNTegqP5PRJJRZNt/view?usp=drive_link
-- Test ID :
-- Test PW :
   <br>
 
 ## 프로젝트 소개
 
 - '자취생의 식탁'은 대학생 1인가구의 알뜰한 식생활을 도와주기 위해 제작된 앱입니다.
 - **기능 1**: 사용자가 먹고싶은 음식을 고르면 가격 측면에서 외식과 요리 중 효율적인 선택지를 추천합니다.
-- **기능 2**: 사용자가 먹고싶어하는 음식 카테고리와 어울리는 주류를 추천합니다.
+- **기능 2**: 사용자가 먹고싶어하는 음식 카테고리와 어울리는 주류를 추천합니다. <구현예정>
 - **기능 3**: 사용자의 냉장고 식재료 유통기한 알림 및 냉장고 속 재료로 만들 수 있는 레시피를 제공합니다.
   <br>
 
@@ -27,7 +25,7 @@
 
 ## 1. 개발 환경
 
-- **Front**: HTML, Kotlin
+- **Front**: HTML, Kotlin, C#
 - **Back-end**: Java, Spring Boot
 - **Database**: MySQL
 - **Server**: AWS
