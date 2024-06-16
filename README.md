@@ -50,19 +50,12 @@
 ### 🍊 김가은
 
 - **Back-End**
-  - asdf
+  - 레시피 및 식재료, 음식점 가격을 추출하는 알고리즘 작성
+  - 공공데이터 API를 이용한 식재료 가격 불러오기
+  - 공공데이터 API를 이용한 레시피 불러오기
+  - 프론트앤드와 백엔드 연결
 - **DataBase**
-  - asdf
-- **Server**
-  - asdf
-    <br>
-
-### 👻 이도영
-
-- **Design**
-  - asdf
-- **Front-End**
-  - asdf
+  - 전체 DB 구조 설계 및 데이터 입력
     <br>
 
 ### 😎 이윤석
@@ -74,22 +67,10 @@
   - Andriod Studio를 이용한 원하는 음식 선택 및 가격 비교 화면 UI(xml), 로직(Kotlin) 구현
     <br>
 
-### 🐬 정서영
-
-- **Back-End**
-  - asdf
-- **DataBase**
-  - asdf
-- **Server**
-  - asdf
-    <br>
-
 ### 👻 조성윤
 
-- **Design**
-  - asdf
 - **Front-End**
-  - asdf
+  - Android Studio를 이용한 레시피 검색 페이지 구현
     <br>
 
 ## 4. 개발 기간 및 작업 관리
