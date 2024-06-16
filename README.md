@@ -102,7 +102,7 @@
 
 ![Screenshot_20240609_023736_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/231e153a-6986-4692-abf4-4aa2ad4ca202)
 
-- asdf
+- 사용자가 앱을 실행시키면 냉장고 관리하기와 레시피 찾기 버튼 중 하나를 선택할 수 있습니다.
   <br>
 
 ### 냉장고 관리 화면
@@ -110,17 +110,29 @@
 ![Screenshot_20240609_023741_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/36658750-ec81-4c4c-9b89-c001a191aae5)
 ![Screenshot_20240609_023838_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/471c5b06-e7e2-404a-b40b-61b65062e565)
 
+- 사용자가 직접 냉장고에 식재료를 추가할 수 있으며, 식재료 유통기한을 설정하지 않거나, 유통기한 날짜 양식을 지키지 않을 시, 기본 유통기한으로 입력됩니다.
+- 유통기한 3일 미만 식재료를 따로 분리하여 나타내, 사용자가 식재료를 낭비하지 않도록 하였습니다.
+
 ### 레시피 탐색 화면
 
 ![Screenshot_20240609_023847_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/06976668-ad43-443e-93c7-a1626a77e2ae)
 ![Screenshot_20240609_023854_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/5da8648a-19e1-41aa-9268-9c90e0202766)
 ![Screenshot_20240609_023906_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/0930ca7a-f734-4cd3-8955-087bfbf36fd7)
 
+- 사용자가 원하는 상단의 검색 탭에 입력하면, 음식을 만들기 위해 필요한 식재료와 레시피가 뜨도록 구현했습니다.
+- 한식, 중식, 일식, 양식 카테고리로 음식을 분리하여, 사용자가 검색하는 것 대신 앱을 둘러보면서 음식을 클릭할 수 있도록 구현했습니다.
+- 근처 음식점과 비교하기 버튼을 클릭하여 외식을 하는 것과 직접 만들어먹는 비용을 사용자 스스로 비교할 수 있습니다.
+
 ### 근처 식당 비교 화면
 
 ![Screenshot_20240609_023925_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/54edb875-77f8-4827-8a3e-c0222298037b)
 ![Screenshot_20240609_025218_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/4944f845-9678-4b28-8745-ad6f9a4aa4b7)
 ![Screenshot_20240609_025256_OpenSW](https://github.com/CSID-DGU/2024-01-CSC4004-03-Trogrammer/assets/50064865/248dd9a0-6792-437f-80ff-506bfa535dd5)
+
+- 근처 음식점의 외식 가격과 식재료를 구매하는 비용을 비교하여 더 경제적인 방법을 선택할 수 있습니다.
+- 사용자의 냉장고에 있는 식재료를 배제하고 구매 식재료를 표시하여, 불필요한 식재료 구매를 막을 수 있도록 하였습니다.
+- 구매해야 하는 식재료의 쿠팡 링크를 삽입하여, 간편하게 식재료를 구매할 수 있도록 유도하였습니다.
+- 가장 저렴한 근처 식당 위치를 네이버 지도로 볼 수 있도록 버튼을 구현하였습니다.
 
 ## 6. 프로젝트 후기
 
